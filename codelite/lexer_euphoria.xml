@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    CodeLite Lexer Definition for the Euphoria Programming Language
+	
+    CodeLite: http://codelite.org
+    Euphoria: http://openeuphoria.org and http://rapideuphoria.com 
+
+    Place this file in the directory C:\Program Files\CodeLite\lexers\Default
+	for Windows. It will work also on Linux and OS X, but the path varies per 
+	installation.
+-->
+<Lexer Name="Euphoria" Id="3">
+  <KeyWords0>as and by case constant do end else elsif enum export for function global include if label loop not or override procedure public switch then type to until while xor</KeyWords0>
+  <KeyWords1>object sequence integer atom</KeyWords1>
+  <KeyWords2>break continue entry exit goto glabel retry return</KeyWords2>
+  <KeyWords3>ifdef elsifdef elsedef trace with without</KeyWords3>
+  <KeyWords4/>
+  <Extensions>*.e;*.ew;*.ex;*.exd;*.exw;</Extensions>
+  <Properties>
+    <Property Id="0" Name="Default" Bold="no" Face="" Colour="#808080" BgColour="#FFFFFF" Size="9"/>
+    <Property Id="1" Name="Comment" Bold="no" Face="" Colour="#008040" BgColour="white" Size="9"/>
+    <Property Id="2" Name="Comment Line" Bold="no" Face="" Colour="#008000" BgColour="white" Size="9"/>
+    <Property Id="3" Name="Comment Doc" Bold="no" Face="" Colour="#004080" BgColour="white" Size="9"/>
+    <Property Id="4" Name="Number" Bold="no" Face="" Colour="#FF00FF" BgColour="white" Size="9"/>
+    <Property Id="5" Name="Keyword" Bold="no" Face="" Colour="#0080FF" BgColour="white" Size="9"/>
+    <Property Id="6" Name="String" Bold="no" Face="" Colour="#FF8000" BgColour="white" Size="9"/>
+    <Property Id="7" Name="Character" Bold="no" Face="" Colour="#FF8040" BgColour="white" Size="9"/>
+    <Property Id="8" Name="String Literal" Bold="no" Face="" Colour="#FF8000" BgColour="white" Size="9"/>
+    <Property Id="9" Name="Preprocessor" Bold="no" Face="" Colour="#804040" BgColour="white" Size="9"/>
+    <Property Id="10" Name="Operator" Bold="no" Face="" Colour="#808080" BgColour="white" Size="9"/>
+    <Property Id="11" Name="Identifier" Bold="no" Face="" Colour="#000000" BgColour="white" Size="9"/>
+    <Property Id="-1" Name="Fold Margin" Bold="no" Face="" Colour="#FFFFFF" BgColour="#D0D0D0" Size="9"/>
+    <Property Id="-2" Name="Text Selection" Bold="no" Face="" Colour="#000000" BgColour="#C0C0C0" Size="9"/>
+    <Property Id="-3" Name="Caret Colour" Bold="no" Face="" Colour="#000000" BgColour="#000000" Size="9"/>
+    <Property Id="33" Name="Line Numbers" Bold="no" Face="" Colour="#004080" BgColour="#FFFFFF" Size="9"/>
+    <Property Id="34" Name="Brace match" Bold="yes" Face="" Colour="#FFFF00" BgColour="white" Size="9"/>
+    <Property Id="35" Name="Brace bad match" Bold="yes" Face="" Colour="red" BgColour="white" Size="9"/>
+    <Property Id="37" Name="Indent Guide" Bold="no" Face="" Colour="#C0C0C0" BgColour="#FFFFFF" Size="9"/>
+  </Properties>
+</Lexer>
