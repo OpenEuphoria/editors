@@ -1,0 +1,164 @@
+; -!- emf -!-
+;
+; Created:     2008-06-21
+; Synopsis:    Euphoria mode hook
+; Authors:     Jeremy Cowgar
+;
+
+define-macro fhook-euphoria
+    set-variable $buffer-mask "luh1"
+    @# buffer-init "euphoria"
+    buffer-init-hooks
+!emacro
+
+; buffer-init variables
+set-variable .fhook-euphoria.setup &reg "/history/fhook/euphoria" "bdfghnopxlqv"
+set-variable .fhook-euphoria.setup-mask "abdefghikmnoptuxclqrvy"
+set-variable .fhook-euphoria.comment "|--||--|-- | --|r|"
+
+; Setup collapse
+set-variable .fhook-euphoria.collapse-open "^procedure\\|^global\\s*procedure\\|^export\\s*procedure"
+set-variable .fhook-euphoria.collapse-close "^end"
+
+; Setup item-list
+set-variable .fhook-euphoria.item-list-s1 "^\\s*global\\s*procedure\\s+\\(\\w[1-9A-Za-z_]*\\)"
+set-variable .fhook-euphoria.item-list-r1 "GlobProc \ecB\\1\ecA"
+set-variable .fhook-euphoria.item-list-s2 "^\\s*global\\s*function\\s+\\(\\w[1-9A-Za-z_]*\\)"
+set-variable .fhook-euphoria.item-list-r2 "GlobFunc \ecB\\1\ecA"
+set-variable .fhook-euphoria.item-list-s3 "^\\s*global\\s*type\\s+\\(\\w[1-9A-Za-z_]*\\)"
+set-variable .fhook-euphoria.item-list-r3 "GlobType \ecB\\1\ecA"
+set-variable .fhook-euphoria.item-list-s4 "^\\s*export\\s*procedure\\s+\\(\\w[1-9A-Za-z_]*\\)"
+set-variable .fhook-euphoria.item-list-r4 "ExptProc \ecB\\1\ecA"
+set-variable .fhook-euphoria.item-list-s5 "^\\s*export\\s*function\\s+\\(\\w[1-9A-Za-z_]*\\)"
+set-variable .fhook-euphoria.item-list-r5 "ExptFunc \ecB\\1\ecA"
+set-variable .fhook-euphoria.item-list-s6 "^\\s*export\\s*type\\s+\\(\\w[1-9A-Za-z_]*\\)"
+set-variable .fhook-euphoria.item-list-r6 "ExptType \ecB\\1\ecA"
+set-variable .fhook-euphoria.item-list-s7 "^\\s*procedure\\s+\\(\\w[1-9A-Za-z_]*\\)"
+set-variable .fhook-euphoria.item-list-r7 "LoclProc \ecB\\1\ecA"
+set-variable .fhook-euphoria.item-list-s8 "^\\s*function\\s+\\(\\w[1-9A-Za-z_]*\\)"
+set-variable .fhook-euphoria.item-list-r8 "LoclFunc \ecB\\1\ecA"
+set-variable .fhook-euphoria.item-list-s9 "^\\s*type\\s+\\(\\w[1-9A-Za-z_]*\\)"
+set-variable .fhook-euphoria.item-list-r9 "LoclType \ecB\\1\ecA"
+
+!if &not &exist .hilight.euphoria
+    set-variable .hilight.euphoria &pinc .hilight.next 1
+!endif
+!if &and &sin "h" .fhook-euphoria.setup &band .hilight.flags 0x02 
+    0 hilight .hilight.euphoria 1 $global-scheme
+    
+    hilight .hilight.euphoria 2 "^#!/"                   .scheme.header
+    hilight .hilight.euphoria 2 "--"                     .scheme.comment
+    hilight .hilight.euphoria 4 "\"" "\"" "\\"           .scheme.string
+    hilight .hilight.euphoria 4 "'" "'" "\\"             .scheme.string
+    
+    hilight .hilight.euphoria 1 "as"                     .scheme.keyword
+    hilight .hilight.euphoria 1 "and"                    .scheme.keyword
+    hilight .hilight.euphoria 1 "break"                  .scheme.keyword
+    hilight .hilight.euphoria 1 "by"                     .scheme.keyword
+    hilight .hilight.euphoria 1 "case"                   .scheme.keyword
+    hilight .hilight.euphoria 1 "constant"               .scheme.keyword
+    hilight .hilight.euphoria 1 "continue"               .scheme.keyword
+    hilight .hilight.euphoria 1 "do"                     .scheme.keyword
+    hilight .hilight.euphoria 1 "end"                    .scheme.keyword
+    hilight .hilight.euphoria 1 "else"                   .scheme.keyword
+    hilight .hilight.euphoria 1 "elsif"                  .scheme.keyword
+    hilight .hilight.euphoria 1 "exit"                   .scheme.keyword
+    hilight .hilight.euphoria 1 "entry"                  .scheme.keyword
+    hilight .hilight.euphoria 1 "enum"                   .scheme.keyword
+    hilight .hilight.euphoria 1 "for"                    .scheme.keyword
+    hilight .hilight.euphoria 1 "function"               .scheme.keyword
+    hilight .hilight.euphoria 1 "include"                .scheme.keyword
+    hilight .hilight.euphoria 1 "if"                     .scheme.keyword
+    hilight .hilight.euphoria 1 "label"                  .scheme.keyword
+    hilight .hilight.euphoria 1 "not"                    .scheme.keyword
+    hilight .hilight.euphoria 1 "or"                     .scheme.keyword
+    hilight .hilight.euphoria 1 "procedure"              .scheme.keyword
+    hilight .hilight.euphoria 1 "return"                 .scheme.keyword
+    hilight .hilight.euphoria 1 "retry"                  .scheme.keyword
+    hilight .hilight.euphoria 1 "switch"                 .scheme.keyword
+    hilight .hilight.euphoria 1 "then"                   .scheme.keyword
+    hilight .hilight.euphoria 1 "type"                   .scheme.keyword
+    hilight .hilight.euphoria 1 "to"                     .scheme.keyword
+    hilight .hilight.euphoria 1 "while"                  .scheme.keyword
+    hilight .hilight.euphoria 1 "xor"                    .scheme.keyword
+    
+    hilight .hilight.euphoria 1 "global"                 .scheme.type
+    hilight .hilight.euphoria 1 "export"                 .scheme.type
+    hilight .hilight.euphoria 1 "atom"                   .scheme.type
+    hilight .hilight.euphoria 1 "integer"                .scheme.type
+    hilight .hilight.euphoria 1 "sequence"               .scheme.type
+    hilight .hilight.euphoria 1 "object"                 .scheme.type
+    
+    hilight .hilight.euphoria 1 "ifdef"                  .scheme.prepro
+    hilight .hilight.euphoria 1 "elsifdef"               .scheme.prepro
+    hilight .hilight.euphoria 1 "with"                   .scheme.prepro
+    hilight .hilight.euphoria 1 "without"                .scheme.prepro
+    
+    hilight .hilight.euphoria 0 "\\+"                    .scheme.operator
+    hilight .hilight.euphoria 0 "-"                      .scheme.operator
+    hilight .hilight.euphoria 0 "\\*"                    .scheme.operator
+    hilight .hilight.euphoria 0 "/"                      .scheme.operator
+    hilight .hilight.euphoria 0 "="                      .scheme.operator
+    hilight .hilight.euphoria 0 ">"                      .scheme.operator
+    hilight .hilight.euphoria 0 "<"                      .scheme.operator
+    hilight .hilight.euphoria 0 "\\.\\."                 .scheme.operator
+    hilight .hilight.euphoria 0 "[[]"                    .scheme.operator
+    hilight .hilight.euphoria 0 "[]]"                    .scheme.operator
+    
+    !if &band .hilight.flags 0x08
+        ; Hilight numbers
+        hilight .hilight.euphoria 1 "[[:digit:]]+"       .scheme.constant
+        hilight .hilight.euphoria 1 "-[[:digit:]]+"      .scheme.constant
+        hilight .hilight.euphoria 1 "0[xX][[:digit:]]+"  .scheme.constant
+    !endif
+!endif
+
+!if &sin "d" .fhook-euphoria.setup
+	0 indent .hilight.euphoria 0 25
+        
+        indent .hilight.euphoria N "^\\s*global\\s*function" t
+        indent .hilight.euphoria N "^\\s*export\\s*function" t
+        indent .hilight.euphoria N "^\\s*function" t
+        indent .hilight.euphoria N "^\\s*global\\s*procedure" t
+        indent .hilight.euphoria N "^\\s*export\\s*procedure" t
+        indent .hilight.euphoria N "^\\s*procedure" t
+        indent .hilight.euphoria N "^\\s*global\\s*type" t
+        indent .hilight.euphoria N "^\\s*export\\s*type" t
+        
+        ; if statement
+        indent .hilight.euphoria N "^\\s*if" t
+        indent .hilight.euphoria S "^\\s*elsif" -t
+        indent .hilight.euphoria S "^\\s*else" -t
+	indent .hilight.euphoria S "^\\s*then" -t
+        
+        ; ifdef statement
+        indent .hilight.euphoria N "^\\s*ifdef" t
+        indent .hilight.euphoria S "^\\s*elsifdef" -t
+        
+        ; switch statement
+        indent .hilight.euphoria N "^\\s*switch" 2t
+        indent .hilight.euphoria S "^\\s*case" -t
+        
+        ; loops
+	indent .hilight.euphoria N "^\\s*while" t
+        indent .hilight.euphoria N "^\\s*for" t
+        indent .hilight.euphoria N "^\\s*loop" t
+        indent .hilight.euphoria S "^\\s*do" -t
+        indent .hilight.euphoria S "^\\s*entry" -t
+        
+        ; end of most statements
+        indent .hilight.euphoria O "^\\s*end\\s+switch" -2t
+        indent .hilight.euphoria O "^\\s*end"         -t
+	
+	; Expressions at the end of a line - try with these
+	indent .hilight.euphoria c "[-+=*/<>]$" t
+		
+        ;indent .hilight.euphoria b "(" ")"
+	;indent .hilight.euphoria b "\\[" "\\]"
+	
+	; ignores
+        indent .hilight.euphoria i "--"
+	indent .hilight.euphoria e "\"" "\"" "\\"
+!endif
+
+buffer-init-fhook "euphoria"
