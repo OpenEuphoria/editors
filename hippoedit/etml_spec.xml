@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="syntax.xslt"?>
+<XMLConfigSettings>
+	<FILEINFO author="Jeremy Cowgar" type="LangSpec"/>
+	<SYNTAX id="etml" name="Euphoria HTML" inherit="html" inherit_url="html_spec.xml">
+		<SPECIFICATION>
+			<FilePattern mask="*.etml"/>
+			<OpenClose>()[]''</OpenClose>
+			<Operators>?--+/*=&lt;&gt;</Operators>
+			<Words>0-9A-Za-z_--</Words>
+      <Encoding default="iso-8859-1" bom="false">
+		  <Block open="charset="/>
+	  </Encoding>
+      <SyntaxBlocks>
+	  	  <Block open="&lt;%"/>
+	  </SyntaxBlocks>
+      <Bars navigation="true" hierarchy="true"/>
+    </SPECIFICATION>
+		<STYLES>
+			<Style name="Euphoria" include="eu:normal" bold="0" italic="0" underline="0" clr="#FF000000" bkclr="Embedded Language 1 Back" overview="1">
+				<Containers>
+					<Close id="eu:normal"/>
+					<Close id="eu:comment"/>
+					<Open id="js:string"/>
+					<Open id="js:char"/>
+					<Open id="js:normal"/>
+					<Open id="string"/>
+					<Open id="normal"/>
+					<Open id="xml_open_tag"/>
+					<Open id="xml_close_tag"/>
+				</Containers>
+				<Blocks>
+					<Block open="&lt;%" close="%&gt;"/>
+				</Blocks>
+			</Style>
+		</STYLES>
+	</SYNTAX>
+</XMLConfigSettings>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="syntax.xslt"?>
+<XMLConfigSettings>
+	<FILEINFO author="Jeremy Cowgar" type="LangSpec" />
+	<SYNTAX id="eu" name="Euphoria" inherit="def_source" inherit_url="defsource_spec.xml">
+		<SPECIFICATION>
+			<FilePattern mask="*.e;*.ex;*.exw;*.exd;ex.err;*.pro"/>
+			<CaseSensitive>true</CaseSensitive>
+			<OpenClose>''""</OpenClose>
+			<EscapeChar>\</EscapeChar>
+			<Operators>?*-+/&amp;*=&lt;&gt;!{}()[].</Operators>
+			<Words>0-9A-Za-z_</Words>
+			<Numbers>-+0-9A-Fa-ftx\#._</Numbers>
+			<HierarchySeparator>
+				<Separator text=":" />
+			</HierarchySeparator>
+			<Bars navigation="true"/>
+		</SPECIFICATION>
+		<Format>
+			<DefaultIndent>4</DefaultIndent>
+		</Format>
+		<SCOPES>
+			<Scope open="{" close="}"/>
+				<Scope open="(" close=")"/>
+				<Scope open="[" close="]"/>
+				<Scope open="for" close="end for"/>
+				<Scope open="while" close="end while">
+				<Middle text="entry" />
+			</Scope>
+			<Scope open="loop" close="end do" />
+			<Scope open="function" close="end function" has_name="true" separator="true"/>
+			<Scope open="procedure" close="end procedure" has_name="true" separator="true"/>
+			<Scope open="type" close="end type" has_name="true" separator="true"/>
+			<Scope open="if" close="end if">
+				<Middle text="elsif"/>
+				<Middle text="case else"/>
+			</Scope>
+			<Scope open="ifdef" close="end ifdef">
+				<Middle text="elsdef"/>
+				<Middle text="elseifdef"/>
+			</Scope>
+			<Scope open="switch" close="end switch">
+				<Middle text="case" />
+				<Middle text="case else" />
+			</Scope>
+		</SCOPES>
+		<LABELS>
+			<Label group="Include" match="\s*((public)?\s*include\s+([\w.\/]+))\s?" name="\3" image="15" navigation="false"/>
+			<Label group="Function" match="\s*((global|public|export|override)?\s*(function|procedure|type))\s+(\w+)\s*(\([^)]*\))" name="\1 \4" descr="\1 \2 \3" scope="1" image="9"/>
+		</LABELS>
+		<STYLES>
+			<Style id="url" extend="true">
+				<Containers>
+					<Open id="normal" exclude="true"/>
+					<Open id="string"/>
+					<Open id="comment"/>
+					<Open id="char"/>
+				</Containers>
+			</Style>
+			<Style id="comment" name="Comments" text="1" bold="0" italic="1" underline="0" clr="#FF0000" bkclr="#FFFFFFFF">
+				<Blocks>
+					<Block open="--" close="\n" />
+					<Block open="/*" close="*/" />
+				</Blocks>
+			</Style>
+			<Style id="string" name="Strings" text="1" bold="0" italic="0" underline="0" clr="#009900" bkclr="#FFFFFFFF">
+				<Blocks>
+					<Block open="&quot;" close="&quot;"/>
+					<Block open="&quot;&quot;&quot;" close="&quot;&quot;&quot;"/>
+					<Block open="`" close="`" />
+				</Blocks>
+			</Style>
+			<Style id="char" name="Char" text="1" bold="0" italic="0" underline="0" clr="#009900" bkclr="#FFFFFFFF">
+				<Blocks>
+					<Block open="'" close="'"/>
+				</Blocks>
+			</Style>
+			<Style name="Data Types" image="10" bold="0" italic="0" underline="0" clr="Keyword2" bkclr="#FFFFFFFFF">
+				<Keywords>
+					<Keyword text="atom" />
+					<Keyword text="enum" />
+					<Keyword text="integer" />
+					<Keyword text="object" />
+					<Keyword text="sequence" />
+				</Keywords>
+			</Style>
+			<Style name="Scope Modifiers" bold="1" italic="0" underline="0" clr="Keyword3" bkclr="#FFFFFFFFF">
+				<Keywords>
+					<Keyword text="export" />
+					<Keyword text="global" />
+					<Keyword text="override" />
+					<Keyword text="public" />
+				</Keywords>
+			</Style>
+			<Style id="preprocessor" name="Preprocessor" bold="0" italic="0" underline="0" clr="Preprocessor" bkclr="#FFFFFFFFF">
+				<Keywords>
+					<Keyword text="elsedef" />
+					<Keyword text="elsifdef" />
+					<Keyword text="ifdef" />
+					<Keyword text="include" />
+					<Keyword text="namespace" />
+					<Keyword text="trace" />
+					<Keyword text="with" />
+					<Keyword text="without" />
+				</Keywords>
+			</Style>
+			<Style id="keywords" name="Keywords" image="13" bold="1" italic="0" underline="0" clr="#0000AA" bkclr="#FFFFFFFF">
+				<Keywords>
+					<Keyword text="and" />
+					<Keyword text="as" />
+					<Keyword text="break" />
+					<Keyword text="by" />
+					<Keyword text="case" />
+					<Keyword text="constant" />
+					<Keyword text="continue" />
+					<Keyword text="do" />
+					<Keyword text="else" />
+					<Keyword text="elsif" />
+					<Keyword text="end" />
+					<Keyword text="entry" />
+					<Keyword text="exit" />
+					<Keyword text="for" />
+					<Keyword text="function" />
+					<Keyword text="glabel" />
+					<Keyword text="goto" />
+					<Keyword text="if" />
+					<Keyword text="label" />
+					<Keyword text="loop" />
+					<Keyword text="not" />
+					<Keyword text="or" />
+					<Keyword text="procedure" />
+					<Keyword text="retry" />
+					<Keyword text="return" />
+					<Keyword text="switch" />
+					<Keyword text="then" />
+					<Keyword text="to" />
+					<Keyword text="type" />
+					<Keyword text="until" />
+					<Keyword text="while" />
+					<Keyword text="xor" />
+				</Keywords>
+			</Style>
+			<Style name="Constants" image="7" bold="0" italic="0" underline="0" clr="Keyword" bkclr="#FFFFFFFF">
+				<Keywords>
+					<Keyword text="BSD" />
+					<Keyword text="EU4" />
+					<Keyword text="EU40" />
+					<Keyword text="EU400" />
+					<Keyword text="EUB" />
+					<Keyword text="EUB_CON" /> 
+					<Keyword text="EUB_SHROUD" /> 
+					<Keyword text="EUB_WIN32" />
+					<Keyword text="EUC" />
+					<Keyword text="EUC_CON" /> 
+					<Keyword text="EUC_DLL" />
+					<Keyword text="EUI" /> 
+					<Keyword text="FREEBSD" />
+					<Keyword text="LINUX" />
+					<Keyword text="NETBSD" />
+					<Keyword text="OPENBSD" />
+					<Keyword text="OSX" />
+					<Keyword text="SUNOS" />
+					<Keyword text="UNIX" />
+					<Keyword text="WIN32" />
+					<Keyword text="WIN32_CONSOLE" />
+					<Keyword text="WIN32_GUI" />
+                    <Keyword text="WINDOWS" />
+				</Keywords>
+			</Style>
+			<Style name="TODOs" text="1" bold="1" italic="1" underline="0" clr="TODOs" bkclr="#FFFFFFFF">
+				<Containers>
+					<Open id="comment"/>
+				</Containers>
+				<Blocks>
+					<Block open="TODO" close="\n"/>
+					<Block open="todo" close="\n"/>
+				</Blocks>
+			</Style>
+		</STYLES>
+	</SYNTAX>
+</XMLConfigSettings>

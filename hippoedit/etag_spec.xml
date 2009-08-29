@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="syntax.xslt"?>
+<XMLConfigSettings>
+	<FILEINFO author="Jeremy Cowgar" type="LangSpec"/>
+	<SYNTAX id="etag" name="Euphoria HTML Tags" inherit="etml" inherit_url="etml_spec.xml">
+		<SPECIFICATION>
+			<FilePattern mask="*.etag"/>
+			<Bars navigation="true" hierarchy="true"/>
+		</SPECIFICATION>
+		<SCOPES>
+			<Scope open="{{{" close="}}}" has_name="true" separator="true"/>
+		</SCOPES>
+		<LABELS>
+			<Label group="Tag" match="\{\{\{([A-Za-z0-9_]+)([^\n]*)\}\}\}$" name="\1" image="11" descr="\1 \2" scope="1">
+				<Containers open="tag_header"/>
+			</Label>
+		</LABELS>
+		<STYLES>
+			<Style id="tag_header" name="Tag Header" image="11" bold="1" italic="0" underline="0" clr="Keyword3" bkclr="#888888888">
+				<Blocks>
+					<Block open="{{{" close="}}}"/>
+				</Blocks>
+			</Style>
+		</STYLES>
+	</SYNTAX>
+</XMLConfigSettings>
