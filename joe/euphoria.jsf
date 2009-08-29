@@ -1,0 +1,163 @@
+# JOE syntax highlight file for Euphoria
+# http://www.rapideuphoria.org
+
+=Idle fg_333
+=Preproc blue bold 
+=Comment bold fg_020
+=Keyword bold fg_022 
+=Type cyan
+=Constant red
+=Escape bold red
+
+:idle Idle
+	*		rest		noeat
+
+:rest Idle
+	*		rest
+	"-"		maybe_comment	recolor=-1
+	"\n"		idle
+	"0-9"		decimal		recolor=-1
+	"\""		string		recolor=-1
+	"\'"		char		recolor=-1
+	"a-zA-Z_"	ident		buffer
+
+:after_term Idle
+	*		rest		noeat
+	"	)]"	after_term
+	"/%"		rest
+
+:maybe_comment Idle
+	*		idle		noeat
+	"-"		line_comment	recolor=-2
+
+:line_comment Comment
+	*		line_comment
+	"\n"		rest
+
+:string	Constant
+	*		string
+	"\""		idle
+	"\\"		string_escape	recolor=-1
+	"%"		string_control	recolor=-1
+
+:string_escape Escape
+	*		string
+	"x"		string_hex1
+	"0-7"		string_octal2
+	"\n"		string		recolor=-2
+
+:string_hex1 Escape
+	*		string		noeat
+	"0-9a-fA-F"	string_hex2
+
+:string_hex2 Escape
+	*		string		noeat
+	"0-9a-fA-F"	string
+
+:string_octal2 Escape
+	*		string		noeat
+	"0-7"		string_octal3
+
+:string_octal3 Escape
+	*		string		noeat
+	"0-7"		string
+
+:string_control Escape
+	*		string
+	"\""		string noeat
+	"\n"		reset
+	"0-9.\-+ #hjILtz$"	string_control
+
+:char Constant
+	*		char
+	"\n"		reset
+	"'"		idle
+	"\\"		char_escape	recolor=-1
+
+:char_escape	Escape
+	*		char
+	"x"		char_hex1
+	"0-7"		char_octal2
+	"\n"		char		recolor=-2
+
+:char_hex1 Escape
+	*		char		noeat
+	"0-9a-fA-F"	char_hex2
+
+:char_hex2 Escape
+	*		char		noeat
+	"0-9a-fA-F"	char
+
+:char_octal2 Escape
+	*		char		noeat
+	"0-7"		char_octal3
+
+:char_octal3 Escape
+	*		char		noeat
+	"0-7"		char
+
+:decimal Constant
+	*		after_term	noeat
+	"0-9_"		decimal
+	"."		float
+
+:float Constant
+	*		after_term	noeat
+	"0-9_"		float
+
+:ident Idle
+	*		after_term	noeat strings
+	"as"		kw
+	"and"		kw
+	"break"		kw
+	"by"		kw
+	"case"		kw
+	"constant"	kw
+	"continue"	kw
+	"do"		kw
+	"end"		kw
+	"else"		kw
+	"elsif"		kw
+	"exit"		kw
+	"entry"		kw
+	"enum"		kw
+	"export"	kw
+	"for"		kw
+	"function"	kw
+	"global"	kw
+	"include"	kw
+	"if"		kw
+	"label"		kw
+	"not"		kw
+	"or"		kw
+	"procedure"	kw
+	"return"	kw
+	"retry"		kw
+	"switch"	kw
+	"then"		kw
+	"type"		kw
+	"to"		kw
+	"while"		kw
+	"xor"		kw
+	
+	"atom"		typ
+	"integer"	typ
+	"sequence"	typ
+	"object"	typ
+	
+	"ifdef"		prepro
+	"elsifdef"	prepro
+	"with"		prepro
+	"without"	prepro
+	
+done
+	"a-zA-Z0-9_"	ident
+
+:kw Keyword
+	*	rest	noeat
+
+:typ Type
+	*	rest	noeat
+
+:prepro Preproc
+	*	rest	noeat
