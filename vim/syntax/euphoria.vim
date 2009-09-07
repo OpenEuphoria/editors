@@ -35,7 +35,7 @@ syn keyword euphoriaKeywords	       case constant continue
 syn keyword euphoriaKeywords	       do
 syn keyword euphoriaKeywords	       end else elsif exit entry
 syn keyword euphoriaKeywords	       for function
-syn keyword euphoriaKeywords	       global goto
+syn keyword euphoriaKeywords	       goto
 syn keyword euphoriaKeywords	       if 
 syn keyword euphoriaKeywords           label loop
 syn keyword euphoriaKeywords	       not
