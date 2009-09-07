@@ -1,0 +1,48 @@
+; -!- emf -!-
+; This is part of the JASSPA MicroEmacs macro files
+; Copyright (C) 2009 JASSPA (www.jasspa.com)
+; See the file me.emf for copying and conditions
+;
+; Created:    Sun Sep 6 2009
+; Synopsis:   Euphoria Text Mark Up Language
+; Authors:    Jeremy Cowgar
+;
+define-macro fhook-etml
+    set-variable $buffer-mask "luh1"
+    @# buffer-init "etml"
+    buffer-init-hooks
+!emacro
+
+; buffer-init variables
+set-variable .fhook-etml.name "eTML"
+set-variable .fhook-etml.setup &reg "/history/fhook/etml" "cdghinopsx"
+set-variable .fhook-etml.setup-mask "acdeghikmnopstux"
+set-variable .fhook-etml.command-flag  "|"
+set-variable .fhook-etml.command-name  "|"
+set-variable .fhook-etml.command-nbind "|"
+set-variable .fhook-etml.command-kbind "|"
+set-variable .fhook-etml.command-desc  "|"
+set-variable .fhook-etml.indent-width 2
+
+; load in euphoria & the html core
+!if &not &exist fhook-euphoria
+    !force exec-file "hkeuphoria"
+!endif
+!force execute-file "htmlcore" "etml" 
+
+; add the <% %> euphoria support
+!if &and &sin "h" .fhook-etml.setup &band .hilight.flags 0x02 
+    ;hilight .hilight.etmltag 4 "=\\{[^ \t\n<>]*<%" "\\?>[^ \t\n>]*" "%>"  .scheme.string
+    ;hilight .hilight.etmltag 4 "=\\{\"[^\"\n<]*<%" "\\?>[^\"]*\"" "%>"  .scheme.string
+    !if &exist .hilight.euphoria
+        hilight .hilight.etml     0x80 "<%" .hilight.euscript .scheme.prepro
+        hilight .hilight.etmltag  0x80 "<%" .hilight.euscript .scheme.prepro
+        hilight .hilight.euscript 0x80 "%>" 0 .scheme.prepro
+        hilight .hilight.etml     0x80 "<%" .hilight.euscript .scheme.prepro
+        hilight .hilight.etmltag  0x80 "<%" .hilight.euscript .scheme.prepro
+        hilight .hilight.euscript 0x80 "%>" 0 .scheme.prepro
+    !endif
+!endif
+
+buffer-init-fhook "etml"
+
