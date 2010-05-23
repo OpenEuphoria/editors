@@ -1,37 +1,129 @@
 ; PSPad clip definition file for Euphoria 4
+; http://openeuphoria.org/wiki/wiki.cgi
 ; Author: ne1    Update: 5.20.2010, needs work
+;; from Arena def
+;;   (black)
+;; B (blue)  keywords
+;; D (dark gray)
+;; F (fuchsia)  routines
+;; G (green)
+;; M (maroon)  math/stdlib
+;; N (navy)
+;; P (purple)  builtins
+;; R (red)  comments
+;;
+[CLIP SETTINGS]
+;;CursorChar=^
+;;SelectionChar=º
+CursorChar=|
+SelectionChar=§
+
 [Macro definition]
-%ype%=@C ???
-[HEADER | Insert header ]
+%condition%=@C Condition:,,x<y,x<y;x>y;x=y;x<=y;x>=y;equal(x,y),
+%conditiondef%=@C WORD:,,WIN32, WIN32;UNIX;UNITTEST,
+%without%=@C statement:,,trace, type_check;inline;profile,
+%include%=@C statement:,,std/cmdline.e, std/cmdline.e;std/console.e;std/convert.e;std/datetime.e;std/dll.e;std/eds.e;std/error.e;std/eumem.e;std/filesys.e;std/flags.e;std/get.e;std/graphcst.e;std/graphics.e;std/image.e;std/io.e;std/lcid.e;std/locale.e;std/localeconv.e;std/machine.e;std/map.e;std/math.e;std/memory.e;std/mouse.e;std/net/common.e;std/net/dns.e;std/net/http.e;std/os.e;std/pipeio.e;std/pretty.e;std/primes.e;std/regex.e;std/safe.e;std/search.e;std/sequence.e;std/serialize.e;std/sets.e;std/socket.e;std/sort.e;std/stack.e;std/stats.e;std/task.e;std/text.e;std/types.e;std/unicode.e;std/unittest.e;std/utils.e;std/wildcard.e;std/win32/msgbox.e;euphoria/keywords.e;euphoria/tokenize.e;euphoria/info.e;euphoria/syncolor4.e,
+
+
+[_\n |R line break]*Ctrl+Enter
+\n
+\n|
+
+[-- |R -- comment]
+-- §|
+[-- TODO FIXME |R -- comment TODO FIXME]
+--  TODO FIXME §|
+[/*...*/ |R /*comment */  ]
+/* §| */
+
+[/*\n...\n*/ |R comment /* ... */ ]
+/*
+ §|
+*/
+[include|B include statement]
+include %include%§|
+[without|B without statement]
+without %without%§|
+[printf|P printf ()]
+printf(1,"%s%d",{§|})
+
+[if|B if statement]
+if %condition% §| then
+elsif  then
+else
+end if
+
+[ifdef|B ifdef statement]
+ifdef %conditiondef%§| then
+elsifdef  then
+elsedef
+end ifdef
+
+[switch|B switch statement]
+switch §| with	fallthru do
+  case then
+	break
+  case else
+		fallthru
+end switch
+
+[for i|B for i ... statement]
+for i= 1| to 10 by 2 do
+	continue
+end for
+
+[loop|B loop...until statement]
+loop do
+
+	until |
+end loop
+
+[while|B while  statement]
+while | with entry with label "" do
+	entry print "entry"
+	exit ""
+end while
+
+[HEADER |R Insert header ]
 -------------------
--- Macro:		%FullFileName%
+-- File:		%FullFileName%
 -- Author: 	%UserName% / %Company%
 -- Date:		%Date%
 -- Comment:	|
 -------------------
-[abs | Returns the absolute value of a number]
-abs(|number)
-[acos | Returns the arccosine of a number]
-acos(|number)
-[asin | Returns the arcsine of a number]
-asin(|number)
-[atan | Returns the arctangent of a number]
-atan(|number)
-[ceil | Returns the smallest integer greater than or equal to its numeric argument]
-ceil(|number)
-[function | function definition]
-public function |()
-
+[function |F function definition]
+public function §|(integer f)
+	return f
 end function
-[procedure | procedure definition]
-public procedure |()
 
+[procedure |F procedure definition]
+public procedure §|()
 end procedure
-[TRACE | trace ]
+
+[TRACE |D trace ]
 with|out trace  --
 
-[TRACE3 | trace3 ]
-trace(|3) --0123 \n
+[TRACE3 |D trace3 ]
+trace(|3) --0123
+[label |B label ]
+label "§|"
+[goto |B goto ]
+goto "§|"
+
+[abs |M Returns the absolute value of a number]
+abs(|number)
+[acos |M Returns the arccosine of a number]
+acos(|number)
+[asin |M Returns the arcsine of a number]
+asin(|number)
+[atan |M Returns the arctangent of a number]
+atan(|number)
+[ceil |M Returns the smallest integer greater than or equal to its numeric argument]
+ceil(|number)
+[floor |M Returns the largest integer greater than or equal to its numeric argument]
+floor(|number)
+[repeat |M repeat]
+repeat(0,|number)
 
 [Keywords]
 include std/cmdline.e
@@ -97,7 +189,15 @@ with profile
 without profile
 with profile_time
 without profile_time
-
+end for
+end function
+end if
+end ifdef
+end loop
+end procedure
+end switch
+end type
+end while
 
 boolean
 continue
