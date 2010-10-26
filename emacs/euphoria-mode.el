@@ -56,7 +56,7 @@
 
 (defconst euphoria-font-lock-keywords-1
   (list
-   '("\\<[+-]?[0-9,_\\.]+\\>" . font-lock-constant-face)
+   '("\\<[+-]?[0-9_\\.]+\\>" . font-lock-constant-face)
    '("\\<[A-Z0-9][^ \t\n\r]*\\>" . font-lock-constant-face)
    '("\\<\\(atom\\|integer\\|object\\|sequence\\)\\>" . font-lock-type-face)
    '("\\<\\(a\\(?:nd\\|s\\)\\|b\\(?:reak\\|y\\)\\|c\\(?:ase\\|on\\(?:stant\\|tinue\\)\\)\\|do\\|e\\(?:ls\\(?:e\\(?:def\\)?\\|if\\(?:def\\)?\\)\\|n\\(?:d\\|try\\|um\\)\\|x\\(?:\\(?:i\\|por\\)t\\)\\)\\|f\\(?:or\\|unction\\)\\|g\\(?:lobal\\|oto\\)\\|i\\(?:f\\(?:def\\)?\\|nclude\\)\\|label\\|n\\(?:amespace\\|ot\\)\\|or\\|p\\(?:rocedure\\|ublic\\)\\|ret\\(?:ry\\|urn\\)\\|switch\\|t\\(?:hen\\|o\\|ype\\)\\|w\\(?:hile\\|ith\\(?:out\\)?\\)\\|xor\\)\\>" . font-lock-builtin-face)

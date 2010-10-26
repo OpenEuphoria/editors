@@ -1,0 +1,149 @@
+;;
+;; Sample config file from Jeremy Cowgar
+;;
+;; 95% of this is not required but makes things a bit nicer, I think :-)
+;;
+;; One thing about Emacs is that you can do anything in it so everyone's
+;; config file is going to look quite a bit different. These are just
+;; a few select items from my config file to help a newbie get started
+;; with their own.
+;;
+
+;;;;;;;;;;;;;;;;;;;;
+;; Load Path
+;;
+;; I place all my local files under ~/.elisp so
+;; add it to the loading path so I can just
+;; (require ...) files in that directory
+;;
+;;;;;;;;;;;;;;;;;;;;
+
+(setq load-path (nconc '( "~/.elisp") load-path))
+
+;;;;;;;;;;;;;;;;;;;;
+;;
+;; Some simple likes
+;;
+;;;;;;;;;;;;;;;;;;;;
+
+;; Show the date/time in the status bar
+
+(setq display-time-day-and-date t)
+(display-time)
+
+;; Display in the status bar my current line number, column number
+;; and function name
+
+(line-number-mode 1)
+(setq column-number-mode t)
+(which-func-mode t)
+
+;; Completion on buffer switching
+(iswitchb-mode)
+
+;; highlight during query
+(setq query-replace-highlight t)
+
+;; highlight incremental search
+(setq search-highlight t)
+
+;; Recently editing files
+(recentf-mode t)
+
+;; Show matching parens
+(show-paren-mode t)
+
+;; Don't add new lines to the end of the file when using down-arrow
+(setq next-line-add-newlines nil)
+
+;; Make all "yes or no" prompts show "y or n"
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Open unidentified files in text mode
+(setq default-major-mode 'text-mode)
+
+;; Windows like selection and key bindings
+(pc-bindings-mode)
+(pc-selection-mode)
+
+;; Do only one line scrolling
+(setq scroll-step 1)
+
+;; Always do colors in major editing modes
+(require 'font-lock)
+(global-font-lock-mode t)
+
+;; Enable the ability to use italics
+(setq w32-enable-italics t)
+
+;; Keep backup files but in ~/.backups
+(setq backup-directory-alist (quote ((".*" . "~/.backups"))))
+(setq use-backup-dir t)
+
+;; Delete trailing whitespace on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(setq tab-width 4)
+(setq-default indent-tabs-mode nil)
+(setq require-final-newline t)
+(setq next-screen-context-lines 8)
+
+(if (>= emacs-major-version 21)
+    (setq show-trailing-whitespace t))
+
+;; yasnippets is optional but highly productive:
+;;
+;; http://code.google.com/p/yasnippet/
+
+(require 'yasnippet-bundle)
+(setq yas/root-directory "~/.elisp/yasnippets")
+(yas/load-directory "~/.elisp/yasnippets")
+
+;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Euphoria setup
+;;
+;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'euphoria-mode)
+
+;; Set euphoria-mode up for tab-only indentation and
+;; also to auto-indent to previous lines indentation.
+
+(defun my-euphoria-mode-hook ()
+  (setq tab-width 4)
+  (setq indent-tabs-mode t)
+  (local-set-key (kbd "TAB") 'self-insert-command)
+  (local-set-key "\C-m" 'newline-and-indent))
+
+;; Execute my hook when the Euphoria mode runs
+(add-hook 'euphoria-mode-hook 'my-euphoria-mode-hook)
+
+;; This is optional, but mmm mode allows for multiple major
+;; modes, thus we can have HTML with Euphoria embedded in it.
+;;
+;; http://mmm-mode.sourceforge.net/ 
+
+(require 'mmm-auto)
+(require 'mmm-vars)
+
+(mmm-add-classes
+ '((html-euphoria
+    :submode euphoria-mode
+    :face mmm-declaration-submode-face
+    :delimiter-mode nil
+    :front "<\%"
+    :back "\%>")))
+
+(mmm-add-mode-ext-class nil "\\.etml?\\'" 'html-euphoria)
+(mmm-add-mode-ext-class nil "\\.etag?\\'" 'html-euphoria)
+
+;; Automatically load HTML mode when loading HTML, ETML or ETAG files
+(setq auto-mode-alist
+      (append
+       (list
+        '("\\.html$" . html-mode)
+        '("\\.etml$" . html-mode)
+        '("\\.etag$" . html-mode))
+       auto-mode-alist))
+
