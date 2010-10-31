@@ -46,7 +46,7 @@
 ;; (regexp-opt '("as" "and" "break" "by" "case" "constant" "continue"
 ;;   "do" "end" "else" "elsif" "elsedef" "elsifdef" "exit" "entry" "enum"
 ;;   "export" "for" "function" "global" "goto" "include" "if" "ifdef"
-;;   "label" "namespace" "not" "or" "procedure" "public" "return" "retry"
+;;   "label" "loop" "namespace" "not" "or" "procedure" "public" "return" "retry"
 ;;   "switch" "then" "type" "to" "while" "with" "without" "xor"))
 ;;
 ;; Types:
@@ -59,7 +59,7 @@
    '("\\<[+-]?[0-9_\\.]+\\>" . font-lock-constant-face)
    '("\\<[A-Z0-9][^ \t\n\r]*\\>" . font-lock-constant-face)
    '("\\<\\(atom\\|integer\\|object\\|sequence\\)\\>" . font-lock-type-face)
-   '("\\<\\(a\\(?:nd\\|s\\)\\|b\\(?:reak\\|y\\)\\|c\\(?:ase\\|on\\(?:stant\\|tinue\\)\\)\\|do\\|e\\(?:ls\\(?:e\\(?:def\\)?\\|if\\(?:def\\)?\\)\\|n\\(?:d\\|try\\|um\\)\\|x\\(?:\\(?:i\\|por\\)t\\)\\)\\|f\\(?:or\\|unction\\)\\|g\\(?:lobal\\|oto\\)\\|i\\(?:f\\(?:def\\)?\\|nclude\\)\\|label\\|n\\(?:amespace\\|ot\\)\\|or\\|p\\(?:rocedure\\|ublic\\)\\|ret\\(?:ry\\|urn\\)\\|switch\\|t\\(?:hen\\|o\\|ype\\)\\|w\\(?:hile\\|ith\\(?:out\\)?\\)\\|xor\\)\\>" . font-lock-builtin-face)
+   '("\\<\\(a\\(?:nd\\|s\\)\\|b\\(?:reak\\|y\\)\\|c\\(?:ase\\|on\\(?:stant\\|tinue\\)\\)\\|do\\|e\\(?:ls\\(?:e\\(?:def\\)?\\|if\\(?:def\\)?\\)\\|n\\(?:d\\|try\\|um\\)\\|x\\(?:\\(?:i\\|por\\)t\\)\\)\\|f\\(?:or\\|unction\\)\\|g\\(?:lobal\\|oto\\)\\|i\\(?:f\\(?:def\\)?\\|nclude\\)\\|l\\(?:abel\\|oop\\)\\|n\\(?:amespace\\|ot\\)\\|or\\|p\\(?:rocedure\\|ublic\\)\\|ret\\(?:ry\\|urn\\)\\|switch\\|t\\(?:hen\\|o\\|ype\\)\\|w\\(?:hile\\|ith\\(?:out\\)?\\)\\|xor\\)\\>" . font-lock-builtin-face)
    )
   "Minimal highlighting for Euphoria mode.")
 
