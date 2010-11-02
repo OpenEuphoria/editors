@@ -1,7 +1,7 @@
 ; -!- emf -!-
 ;
 ; Created:     2008-06-21
-; Modified:    2009-09-06
+; Modified:    2010-10-30
 ; Synopsis:    Euphoria 4.0 mode hook
 ; Authors:     Jeremy Cowgar
 ;
@@ -9,6 +9,7 @@
 define-macro fhook-euphoria
     set-variable $buffer-mask "luh1"
     @# buffer-init "euphoria"
+    buffer-abbrev-file "euphoria"
     buffer-init-hooks
 !emacro
 
@@ -20,11 +21,11 @@ set-variable .fhook-euphoria.comment-1 "|--||--|-- | --|r|"
 set-variable .fhook-euphoria.indent-width 4
 
 ; Setup collapse
-set-variable .fhook-euphoria.collapse-open "^\\s*\\(global\\|public\\|export\\)?\\s*\\(function\\|procedure\\|type\\)\\s+\\(\\w+\\)"
+set-variable .fhook-euphoria.collapse-open "^\\s*\\(override\\|global\\|public\\|export\\)?\\s*\\(function\\|procedure\\|type\\)\\s+\\(\\w+\\)"
 set-variable .fhook-euphoria.collapse-close "^\\s*end\\s+\\(function\\|procedure\\|type\\)"
 
 ; Setup item-list
-set-variable .fhook-euphoria.item-list-s1 "^\\s*\\(global\\|public\\|export\\)?\\s*\\(function\\|procedure\\|type\\)\\s+\\(\\w+\\)"
+set-variable .fhook-euphoria.item-list-s1 "^\\s*\\(override\\|global\\|public\\|export\\)?\\s*\\(function\\|procedure\\|type\\)\\s+\\(\\w+\\)"
 set-variable .fhook-euphoria.item-list-r1 "\\1 \\2 \ecB\\3\ecA"
 
 !if &not &exist .hilight.euphoria
@@ -104,7 +105,7 @@ set-variable .fhook-euphoria.item-list-r1 "\\1 \\2 \ecB\\3\ecA"
     hilight .hilight.euphoria 0 "[[]"                    .scheme.operator
     hilight .hilight.euphoria 0 "[]]"                    .scheme.operator
     
-    hilight .hilight.euphoria 1 "[A-Z][A-Z0-9]+"         .scheme.constant
+    hilight .hilight.euphoria 1 "[A-Z_][A-Z0-9]+"        .scheme.constant
     
     ; Hilight numbers
     hilight .hilight.euphoria 1 "[[:digit:]_]+"          .scheme.constant
@@ -115,58 +116,68 @@ set-variable .fhook-euphoria.item-list-r1 "\\1 \\2 \ecB\\3\ecA"
     hilight .hilight.euphoria 1 "0x[0-9A-Fa-f_]+"        .scheme.constant
     hilight .hilight.euphoria 1 "#[0-9A-Fa-f_]+"         .scheme.constant
     
-    hilight .hilight.euphoria 1 "[A-Z_][A-Z0-9_]+"       .scheme.constant
-    
     ; Allow Euphoria to be embedded in other languages
     set-variable .hilight.euscript .hilight.euphoria
 !endif
 
-;!if &sin "d" .fhook-euphoria.setup
-;	0 indent .hilight.euphoria 0 25
-;        
-;        indent .hilight.euphoria N "^\\s*global\\s*function" t
-;        indent .hilight.euphoria N "^\\s*export\\s*function" t
-;        indent .hilight.euphoria N "^\\s*function" t
-;        indent .hilight.euphoria N "^\\s*global\\s*procedure" t
-;        indent .hilight.euphoria N "^\\s*export\\s*procedure" t
-;        indent .hilight.euphoria N "^\\s*procedure" t
-;        indent .hilight.euphoria N "^\\s*global\\s*type" t
-;        indent .hilight.euphoria N "^\\s*export\\s*type" t
-;        
-;        ; if statement
-;        indent .hilight.euphoria N "^\\s*if" t
-;        indent .hilight.euphoria S "^\\s*elsif" -t
-;        indent .hilight.euphoria S "^\\s*else" -t
-;	indent .hilight.euphoria S "^\\s*then" -t
-;        
-;        ; ifdef statement
-;        indent .hilight.euphoria N "^\\s*ifdef" t
-;        indent .hilight.euphoria S "^\\s*elsifdef" -t
-;        
-;        ; switch statement
-;        indent .hilight.euphoria N "^\\s*switch" 2t
-;        indent .hilight.euphoria S "^\\s*case" -t
-;        
-;        ; loops
-;	indent .hilight.euphoria N "^\\s*while" t
-;        indent .hilight.euphoria N "^\\s*for" t
-;        indent .hilight.euphoria N "^\\s*loop" t
-;        indent .hilight.euphoria S "^\\s*do" -t
-;        indent .hilight.euphoria S "^\\s*entry" -t
-;        
-;        ; end of most statements
-;        indent .hilight.euphoria O "^\\s*end\\s+switch" -2t
-;        indent .hilight.euphoria O "^\\s*end"         -t
-;	
-;	; Expressions at the end of a line - try with these
-;	indent .hilight.euphoria c "[-+=*/<>]$" t
-;		
-;        ;indent .hilight.euphoria b "(" ")"
-;	;indent .hilight.euphoria b "\\[" "\\]"
-;	
-;	; ignores
-;        indent .hilight.euphoria i "--"
-;	indent .hilight.euphoria e "\"" "\"" "\\"
-;!endif
+!if &sin "d" .fhook-euphoria.setup
+    0 indent .hilight.euphoria 0 25
+    
+    indent .hilight.euphoria N "^\\s*override\\s*function" t
+    indent .hilight.euphoria N "^\\s*global\\s*function" t
+    indent .hilight.euphoria N "^\\s*public\\s*function" t
+    indent .hilight.euphoria N "^\\s*export\\s*function" t
+    indent .hilight.euphoria N "^\\s*function" t
+    indent .hilight.euphoria N "^\\s*override\\s*procedure" t
+    indent .hilight.euphoria N "^\\s*global\\s*procedure" t
+    indent .hilight.euphoria N "^\\s*public\\s*procedure" t
+    indent .hilight.euphoria N "^\\s*export\\s*procedure" t
+    indent .hilight.euphoria N "^\\s*procedure" t
+    indent .hilight.euphoria N "^\\s*global\\s*type" t
+    indent .hilight.euphoria N "^\\s*public\\s*type" t
+    indent .hilight.euphoria N "^\\s*export\\s*type" t
+    
+    ; if statement
+    indent .hilight.euphoria N "^\\s*if" t
+    indent .hilight.euphoria S "^\\s*elsif" -t
+    indent .hilight.euphoria S "^\\s*else" -t
+    indent .hilight.euphoria S "^\\s*then" -t
+    
+    ; ifdef statement
+    indent .hilight.euphoria N "^\\s*ifdef" t
+    indent .hilight.euphoria S "^\\s*elsifdef" -t
+    
+    ; switch statement
+    indent .hilight.euphoria N "^\\s*switch" 2t
+    indent .hilight.euphoria S "^\\s*case" -t
+    
+    ; loops
+    indent .hilight.euphoria N "^\\s*while" t
+    indent .hilight.euphoria N "^\\s*for" t
+    indent .hilight.euphoria N "^\\s*loop" t
+    indent .hilight.euphoria S "^\\s*do" -t
+    indent .hilight.euphoria S "^\\s*entry" -t
+    
+    ; label
+    indent .hilight.euphoria f "^\\s*label " 0
+    
+    ; end of most statements
+    indent .hilight.euphoria O "^\\s*end\\s+switch" -2t
+    indent .hilight.euphoria O "^\\s*end"         -t
+    
+    ; Expressions at the end of a line - try with these
+    indent .hilight.euphoria c "[-+=*/<>&]$" t
+    
+    ;indent .hilight.euphoria b "{" "}"
+    indent .hilight.euphoria n "{" t
+    indent .hilight.euphoria o "}" -t
+    ;indent .hilight.euphoria b "(" ")"
+    indent .hilight.euphoria n "(" t
+    indent .hilight.euphoria o ")" -t
+    
+    ; ignores
+    indent .hilight.euphoria i "--"
+    indent .hilight.euphoria e "\"" "\"" "\\"
+!endif
 
 buffer-init-fhook "euphoria"
