@@ -4,6 +4,7 @@
 ; See the file me.emf for copying and conditions
 ;
 ; Created:    Sun Sep 6 2009
+; Modified:   Tue Nov 2 2010
 ; Synopsis:   Euphoria Text Mark Up Language
 ; Authors:    Jeremy Cowgar
 ;
@@ -28,21 +29,30 @@ set-variable .fhook-etml.indent-width 2
 !if &not &exist fhook-euphoria
     !force exec-file "hkeuphoria"
 !endif
+
 !force execute-file "htmlcore" "etml" 
 
 ; add the <% %> euphoria support
 !if &and &sin "h" .fhook-etml.setup &band .hilight.flags 0x02 
-    ;hilight .hilight.etmltag 4 "=\\{[^ \t\n<>]*<%" "\\?>[^ \t\n>]*" "%>"  .scheme.string
-    ;hilight .hilight.etmltag 4 "=\\{\"[^\"\n<]*<%" "\\?>[^\"]*\"" "%>"  .scheme.string
-    !if &exist .hilight.euphoria
+    !if &exist .hilight.euscript
         hilight .hilight.etml     0x80 "<%" .hilight.euscript .scheme.prepro
         hilight .hilight.etmltag  0x80 "<%" .hilight.euscript .scheme.prepro
         hilight .hilight.euscript 0x80 "%>" 0 .scheme.prepro
-        hilight .hilight.etml     0x80 "<%" .hilight.euscript .scheme.prepro
-        hilight .hilight.etmltag  0x80 "<%" .hilight.euscript .scheme.prepro
-        hilight .hilight.euscript 0x80 "%>" 0 .scheme.prepro
+        hilight .hilight.etml     4 "{{{" "}}}" "" .scheme.error
+    !endif
+!endif
+!if &sin "d" .fhook-etml.setup
+    !if &exist .indent.euscript
+        indent .hilight.etmltag t "<%" .indent.euscript
+        indent .hilight.etmltag t "[\t ]*end if$" .hilight.euscript
+        indent .hilight.etmltag t "[\t ]*end function$" .hilight.euscript
+        indent .hilight.etmltag t "[\t ]*end sub$" .hilight.euscript
+        indent .hilight.etmltag t "%>" .hilight.etml
+        
+        indent .hilight.etml x "^<%" 0 .indent.euscript
+        indent .hilight.etml x ".<%" t .indent.euscript
+        indent .indent.euscript w "%>" -t 0
     !endif
 !endif
 
 buffer-init-fhook "etml"
-

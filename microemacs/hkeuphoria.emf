@@ -32,10 +32,12 @@ set-variable .fhook-euphoria.item-list-r1 "\\1 \\2 \ecB\\3\ecA"
     set-variable .hilight.euphoria &pinc .hilight.next 1
 !endif
 !if &and &sin "h" .fhook-euphoria.setup &band .hilight.flags 0x02
-    0 hilight .hilight.euphoria 2 75 ;$global-scheme
+    0 hilight .hilight.euphoria 2 75 $global-scheme
 
     hilight .hilight.euphoria  2 "^#!/"                  .scheme.header
     hilight .hilight.euphoria  2 "--"                    .scheme.comment
+    hilight .hilight.euphoria  2 "--\\s*[Tt][Oo][Dd][Oo]".scheme.error
+
     hilight .hilight.euphoria 20 "/\\*" "*/" ""          .scheme.comment
     hilight .hilight.euphoria  2 "\"[^\"]*$"             .scheme.error
     hilight .hilight.euphoria  4 "\"" "\"" "\\"          .scheme.string
@@ -189,10 +191,8 @@ set-variable .fhook-euphoria.item-list-r1 "\\1 \\2 \ecB\\3\ecA"
     ; Expressions at the end of a line - try with these
     indent .hilight.euphoria c "[-+=*/<>&]$" t
 
-    ;indent .hilight.euphoria b "{" "}"
     indent .hilight.euphoria n "{" t
     indent .hilight.euphoria o "}" -t
-    ;indent .hilight.euphoria b "(" ")"
     indent .hilight.euphoria n "(" t
     indent .hilight.euphoria o ")" -t
 
@@ -200,6 +200,11 @@ set-variable .fhook-euphoria.item-list-r1 "\\1 \\2 \ecB\\3\ecA"
     indent .hilight.euphoria i "--"
     indent .hilight.euphoria e "/*" "*/" ""
     indent .hilight.euphoria e "\"" "\"" "\\"
+    indent .hilight.euphoria e "\"\"\"" "\"\"\"" ""
+    indent .hilight.euphoria e "`" "`" ""
+
+    ; let html based files use the euphoria indent for any ETML scripts
+    set-variable .indent.euscript .hilight.euphoria
 !endif
 
 buffer-init-fhook "euphoria"
