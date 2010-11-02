@@ -20,6 +20,12 @@ set-variable .fhook-euphoria.comment "|--||--|-- | --|r|"
 set-variable .fhook-euphoria.comment-1 "|/*| */|*| * | * |fr|"
 set-variable .fhook-euphoria.indent-width 4
 
+set-variable .fhook-euphoria.command-flag  "|th|th|"
+set-variable .fhook-euphoria.command-name  "||euphoria-test|"
+set-variable .fhook-euphoria.command-nbind "|||"
+set-variable .fhook-euphoria.command-kbind "|||"
+set-variable .fhook-euphoria.command-desc  "||Syntax Check|"
+
 ; Setup collapse
 set-variable .fhook-euphoria.collapse-open "^\\s*\\(override\\|global\\|public\\|export\\)?\\s*\\(function\\|procedure\\|type\\)\\s+\\(\\w+\\)"
 set-variable .fhook-euphoria.collapse-close "^\\s*end\\s+\\(function\\|procedure\\|type\\)"
@@ -255,5 +261,34 @@ set-variable .fhook-euphoria.setup-labels  "|EuDoc highlighting|Highlight bad st
     ; let html based files use the euphoria indent for any ETML scripts
     set-variable .indent.euscript .hilight.euphoria
 !endif
+
+define-macro euphoria-test
+    set-variable #l0 $buffer-bname
+    !force 0 find-buffer "*eusyntest*"
+    !if $status
+        find-buffer #l0
+        popup-window  "*eusyntest*"
+        !if &bmod "pipe"
+            !return
+        !endif
+        screen-update
+    !endif
+    ;!if &not &band @# 2
+    ;    set-variable #l0 @ml01 "eui -test - script file"
+    !if &seq $buffer-fname ""
+        ml-write "[Current buffer has no file name]"
+        !abort
+    !else
+        set-variable #l0 $buffer-fname
+    !endif
+    !if &band $system 0x100
+        12 ipipe-shell-command &spr "eui -test %s %s" #l0 "*eusyntest*"
+    !else
+        0 ipipe-shell-command &spr "eui -test %s" #l0 "*eusyntest*"
+    !endif
+    popup-window "*eusyntest*"
+    fhook-ipipe
+    global-bind-key eusyntest-add-breakpoint "f9"
+!emacro
 
 buffer-init-fhook "euphoria"
