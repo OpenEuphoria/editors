@@ -44,13 +44,9 @@ set-variable .fhook-etml.indent-width 2
 !if &sin "d" .fhook-etml.setup
     !if &exist .indent.euscript
         indent .hilight.etmltag t "<%" .indent.euscript
-        indent .hilight.etmltag t "[\t ]*end if$" .hilight.euscript
-        indent .hilight.etmltag t "[\t ]*end function$" .hilight.euscript
-        indent .hilight.etmltag t "[\t ]*end sub$" .hilight.euscript
         indent .hilight.etmltag t "%>" .hilight.etml
         
-        indent .hilight.etml x "^<%" 0 .indent.euscript
-        indent .hilight.etml x ".<%" t .indent.euscript
+        indent .hilight.etml x "<%" t .indent.euscript
         indent .indent.euscript w "%>" -t 0
     !endif
 !endif
