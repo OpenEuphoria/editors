@@ -132,15 +132,19 @@ set-variable .fhook-euphoria.item-list-r1 "\\1 \\2 \ecB\\3\ecA"
     
     ; Add a hook into the normal Euphoria highlighting. We jump
     ; into eudoc when we see an opening "--**".
-    hilight .hilight.euphoria 0x80 "--\\*\\*" .hilight.eudoc   .scheme.comment
+    hilight .hilight.euphoria 0x80 "--\\*\\*\\*\\*$" .hilight.eudoc   .scheme.comment
+    hilight .hilight.euphoria 0x80 "--\\*\\*$" .hilight.eudoc   .scheme.comment
     
     ; eudoc hilighting starts here
     0 hilight .hilight.eudoc 2 50                              .scheme.comment
-    hilight .hilight.eudoc 2 "[A-Za-z0-9 ]+:$"                 .scheme.keyword
+    hilight .hilight.eudoc 2 "[A-Za-z0-9 ]+:$"                 .scheme.function
     hilight .hilight.eudoc 1 "\\[\\[:[^]]+\\]\\]"              .scheme.link
+    hilight .hilight.eudoc 2 "-- =+ .*$"                       .scheme.keyword
     hilight .hilight.eudoc 0x44 "\\*\\*" "**" "\\*\\*" "**" "" .scheme.string
     hilight .hilight.eudoc 0x44 "//" "//" "//" "//" ""         .scheme.string
-    hilight .hilight.eudoc 0x80 "^$" .hilight.euphoria         .scheme.comment
+    hilight .hilight.eudoc 0x44 "\\#\\#" "##" "\\#\\#" "##" "" .scheme.string
+    hilight .hilight.eudoc 0x44 "{{{" "{{{" "}}}" "}}}" ""     .scheme.string
+    hilight .hilight.eudoc 0x80 "^[^-]" .hilight.euphoria      .scheme.comment
 !endif
 
 !if &sin "d" .fhook-euphoria.setup
