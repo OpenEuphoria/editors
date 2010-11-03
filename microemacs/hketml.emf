@@ -23,7 +23,7 @@ set-variable .fhook-etml.command-name  "|"
 set-variable .fhook-etml.command-nbind "|"
 set-variable .fhook-etml.command-kbind "|"
 set-variable .fhook-etml.command-desc  "|"
-set-variable .fhook-etml.indent-width 2
+set-variable .fhook-etml.indent-width 4
 
 ; load in euphoria & the html core
 !if &not &exist fhook-euphoria
@@ -46,8 +46,8 @@ set-variable .fhook-etml.indent-width 2
         indent .hilight.etmltag t "<%" .indent.euscript
         indent .hilight.etmltag t "%>" .hilight.etml
         
-        indent .hilight.etml x "<%" t .indent.euscript
-        indent .indent.euscript w "%>" -t 0
+        indent .hilight.etml x "<%" 1/2t .indent.euscript
+        indent .indent.euscript w "%>" -1/2t 0
     !endif
 !endif
 
