@@ -246,7 +246,8 @@ set-variable .fhook-euphoria.setup-labels  "|EuDoc highlighting|Highlight bad st
     ; Expressions at the end of a line - try with these
     indent .hilight.euphoria c "[-+=*/<>&,]$" t
     indent .hilight.euphoria c "enum$" t
-
+    indent .hilight.euphoria c "constant$" t
+    
     indent .hilight.euphoria n "{" t
     indent .hilight.euphoria o "}" -t
     indent .hilight.euphoria n "(" t
