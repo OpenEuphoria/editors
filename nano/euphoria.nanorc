@@ -1,0 +1,52 @@
+#
+# Euphoria Programming Language (http://openeuphoria.org)
+#
+#  Created: Nov 6 2010
+# Modified: Nov 6 2010
+#   Author: Jeremy Cowgar <jeremy@cowgar.com>
+#
+
+syntax "euphoria" "\.(e|ex|exu|exw)$"
+
+# Constants
+color brightred "\<[A-Z_][0-9A-Z_]+\>" 
+
+# "Preprocessors"
+color brightmagenta "\<(elsifdef|elsedef|ifdef|include|namespace|with|without)\>"
+
+# Keywords
+color brightgreen "\<(as|and|break|by|case|constant|continue|do|end|else|elsif|exit|entry|enum|for|function|goto|if|label|loop|not|or|procedure|return|retry|switch|then|to|type|until|while|xor)\>"
+
+# Built-in types
+color green "\<(atom|integer|sequence|object)\>"
+
+# Scope modifiers
+color brightgreen "\<(override|global|public|export)\>"
+
+# Numbers
+#    normal
+color brightmagenta "\<(0d)?[0-9.][0-9_.]*\>"
+#    binary
+color brightmagenta "\<0b[0-1_]+\>"
+#    octal
+color brightmagenta "\<0t[0-8_]+\>"
+#    hex
+icolor brightmagenta "\<(0x|#)[0-9A-F_]+\>"
+
+# Strings
+#    character
+color brightyellow "<[^=       ]*>" "'[^']'"
+color brightyellow "<[^=       ]*>" "'\\[^']'"
+#    double quote "..."
+color brightyellow "<[^=       ]*>" ""(\.|[^"])*""
+#    back tick `...`
+color brightyellow "<[^=       ]*>" "`(\.|[^`])*`"
+#    tripple quote """..."""
+color brightyellow start=""""[^"]*" end="""""
+
+# Trailing whitespace
+color ,green "[[:space:]]+$"
+
+# Comments
+color brightblue "--.*"
+color brightblue start="/\*" end="\*/"
