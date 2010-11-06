@@ -46,8 +46,9 @@
 ;; (regexp-opt '("as" "and" "break" "by" "case" "constant" "continue"
 ;;   "do" "end" "else" "elsif" "elsedef" "elsifdef" "exit" "entry" "enum"
 ;;   "export" "for" "function" "global" "goto" "include" "if" "ifdef"
-;;   "label" "loop" "namespace" "not" "or" "procedure" "public" "return" "retry"
-;;   "switch" "then" "type" "to" "while" "with" "without" "xor"))
+;;   "label" "loop" "namespace" "not" "or" "override" "procedure" "public"
+;;   "return" "retry" "switch" "then" "type" "to" "until" "while" "with" "without"
+;;   "xor"))
 ;;
 ;; Types:
 ;;
@@ -56,12 +57,21 @@
 
 (defconst euphoria-font-lock-keywords-1
   (list
-   '("\\<[+-]?[0-9_\\.]+\\>" . font-lock-constant-face)
+   '("\\<[+-\.]?\\(0d\\)?[0-9_\\.]+\\>" . font-lock-constant-face)
+   '("\\<0b[0-1_]+\\>" . font-lock-constant-face)
+   '("\\<0t[0-8_]+\\>" . font-lock-constant-face)
+   '("\\<0x[0-9A-Fa-f_]+\\>" . font-lock-constant-face)
    '("\\<[A-Z0-9][^ \t\n\r]*\\>" . font-lock-constant-face)
    '("\\<\\(atom\\|integer\\|object\\|sequence\\)\\>" . font-lock-type-face)
-   '("\\<\\(a\\(?:nd\\|s\\)\\|b\\(?:reak\\|y\\)\\|c\\(?:ase\\|on\\(?:stant\\|tinue\\)\\)\\|do\\|e\\(?:ls\\(?:e\\(?:def\\)?\\|if\\(?:def\\)?\\)\\|n\\(?:d\\|try\\|um\\)\\|x\\(?:\\(?:i\\|por\\)t\\)\\)\\|f\\(?:or\\|unction\\)\\|g\\(?:lobal\\|oto\\)\\|i\\(?:f\\(?:def\\)?\\|nclude\\)\\|l\\(?:abel\\|oop\\)\\|n\\(?:amespace\\|ot\\)\\|or\\|p\\(?:rocedure\\|ublic\\)\\|ret\\(?:ry\\|urn\\)\\|switch\\|t\\(?:hen\\|o\\|ype\\)\\|w\\(?:hile\\|ith\\(?:out\\)?\\)\\|xor\\)\\>" . font-lock-builtin-face)
+   '("\\<\\(a\\(?:nd\\|s\\)\\|b\\(?:reak\\|y\\)\\|c\\(?:ase\\|on\\(?:stant\\|tinue\\)\\)\\|do\\|e\\(?:ls\\(?:e\\(?:def\\)?\\|if\\(?:def\\)?\\)\\|n\\(?:d\\|try\\|um\\)\\|x\\(?:\\(?:i\\|por\\)t\\)\\)\\|f\\(?:or\\|unction\\)\\|g\\(?:lobal\\|oto\\)\\|i\\(?:f\\(?:def\\)?\\|nclude\\)\\|l\\(?:abel\\|oop\\)\\|n\\(?:amespace\\|ot\\)\\|o\\(?:r\\|verride\\)\\|p\\(?:rocedure\\|ublic\\)\\|ret\\(?:ry\\|urn\\)\\|switch\\|t\\(?:hen\\|o\\|ype\\)\\|until\\|w\\(?:hile\\|ith\\(?:out\\)?\\)\\|xor\\)\\>" . font-lock-builtin-face)
+
    )
   "Minimal highlighting for Euphoria mode.")
+
+(defconst euphoria-imenu-generic-expression
+  '(("Routine" "^\\(export\\|public\\|global\\|override\\)?[ \t]*\\(function\\|procedure\\)[ \t]+\\([a-z]+\\)" 3)
+    )
+  "Generic Imenu setup")
 
 (defvar euphoria-font-lock-keywords euphoria-font-lock-keywords-1)
 
@@ -72,6 +82,9 @@
       (setq euphoria-mode-syntax-table (make-syntax-table))
       ;; _ is part of a word
       (modify-syntax-entry ?_ "w" euphoria-mode-syntax-table)
+
+      ;; define '...' strings
+      (modify-syntax-entry ?\' "\""   euphoria-mode-syntax-table)
 
       ;; define `...` strings
       (modify-syntax-entry ?\` "\""   euphoria-mode-syntax-table)
@@ -94,6 +107,7 @@
        '(euphoria-font-lock-keywords))
   (make-local-variable 'comment-start)
   (setq comment-start "-- ")
+  (setq imenu-generic-expression euphoria-imenu-generic-expression)
   (setq major-mode 'euphoria-mode)
   (setq mode-name "Euphoria")
   (run-hooks 'euphoria-mode-hook))
