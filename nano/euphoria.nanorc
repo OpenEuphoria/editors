@@ -35,14 +35,15 @@ icolor brightmagenta "\<(0x|#)[0-9A-F_]+\>"
 
 # Strings
 #    character
-color brightyellow "<[^=       ]*>" "'[^']'"
-color brightyellow "<[^=       ]*>" "'\\[^']'"
+color brightyellow "'[^']'"
+color brightyellow "'\\[^']'"
 #    double quote "..."
-color brightyellow "<[^=       ]*>" ""(\.|[^"])*""
+color brightyellow ""(\.|[^"])*""
 #    back tick `...`
-color brightyellow "<[^=       ]*>" "`(\.|[^`])*`"
+color brightyellow "`(\.|[^`])*`"
 #    tripple quote """..."""
-color brightyellow start=""""[^"]*" end="""""
+color brightgreen "["]{3}.*[^\\]["]{3}"
+#color brightgreen start=""""" end="""""
 
 # Trailing whitespace
 color ,green "[[:space:]]+$"
