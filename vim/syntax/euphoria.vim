@@ -108,8 +108,18 @@ syn match   euphoriaOperator   "=\|&\|[!:\[\]\(\)\{\}<>+\*^/\\]"
 " Todo (only highlighted in comments)
 syn keyword euphoriaTodo contained	TODO FIXME XXX BUG NOTE
 
-syn region euphoriaComment start="/\*" end="\*/" contains=euphoriaTodo,@Spell
-syn region euphoriaComment oneline contains=euphoriaTodo start="--" end="$"
+" Basic Creole/EuDOC markup
+syn region eudocHead    contained oneline start="^[-* \t]*="      end="$"
+syn region eudocLink    contained oneline start=+\[\[+hs=s+2      end=+\]\]+he=e-2
+syn region eudocBold    contained oneline start="[^\*]\*\*[^\* ]" end="\*\*"
+syn region eudocItalic  contained oneline start="[^:]\/\/"hs=s+1  end="[^:]\/\/"
+syn region eudocCode    contained oneline start="##"              end="##"
+syn region eudocHeading contained oneline start="^[-* \t]*[A-Z]"  end="\:$"
+
+syn cluster eudoc contains=eudocHead,eudocLink,eudocBold,eudocItalic,eudocCode,eudocHeading
+
+syn region euphoriaComment start="/\*" end="\*/" contains=euphoriaTodo,@eudoc,@Spell
+syn region euphoriaComment oneline contains=euphoriaTodo,@eudoc,@Spell start="--" end="$"
 syn sync ccomment euphoriaComment
 
 " Define the default highlighting.
@@ -128,6 +138,12 @@ if version >= 508 || !exists("did_euphoria_syntax_inits")
 	hi def link euphoriaCharacter       Character
 	hi def link euphoriaOperator        Operator
 	hi def link euphoriaTodo            ToDo
+    hi def link eudocHead               Statement
+    hi def link eudocCode               Number
+    hi def link eudocLink               String
+    hi def eudocBold                    term=bold cterm=bold gui=bold
+    hi def eudocItalic                  term=italic cterm=italic gui=italic
+    hi def eudocHeading                 term=underline cterm=underline gui=underline
 endif
 
 let b:current_syntax = "euphoria"
