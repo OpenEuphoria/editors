@@ -1,15 +1,15 @@
 " Vim syntax file
 " 
-" Language:	Euphoria eTML
+" Language:     Euphoria eTML
 " Maintainer:	Jeremy Cowgar <jeremy@cowgar.com>
-" Last Change:	2009-08-31
+" Last Change:	Thu Nov 11 13:02:09 EST 2010
 "
 " Install:
 "
 " Add something like the following to your ~/.vim/filetype.vim
 "
 " augroup filetypedetect
-"   au! BufRead,BufNewFile *.etml, *.etag setfiletype etml
+"   au! BufRead,BufNewFile *.etml,*.etag set ft=etml
 " augroup END
 " 
 " Notes:
@@ -41,16 +41,8 @@ syn region EutagHead start=+{{{+ end=+}}}+
 syn region EuphoriaInsideHtmlTags keepend matchgroup=Delimiter start=+<%+ end=+%>+ contains=@EtmlEuphoria
 
 if version >= 508 || !exists("did_etml_syntax_inits")
-	if version < 508
-		let did_euphoria_syntax_inits = 1
-		command -nargs=+ HiLink hi link <args>
-	else
-		command -nargs=+ HiLink hi def link <args>
-	endif
-
-	HiLink EutagHead Error
+	hi def link EutagHead Error
 endif
 
 let b:current_syntax = "etml"
-
 
