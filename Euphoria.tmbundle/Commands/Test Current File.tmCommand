@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>name</key>
+        <string>Test Current File</string>
+        <key>uuid</key>
+        <string>DC2E2191-0318-4031-AC5C-7ED23D0F8732</string>
+        <key>input</key>
+        <string>none</string>
+        <key>output</key>
+        <string>showAsTooltip</string>
+        <key>command</key>
+        <string># just to remind you of some useful environment variables
+
+echo File: "$TM_FILEPATH"
+echo Word: "$TM_CURRENT_WORD"
+echo Selection: "$TM_SELECTED_TEXT"</string>
+        <key>runEnvironment</key>
+        <string>windows</string>
+        <key>winCommand</key>
+        <string>#!/usr/bin/env eui
+
+include std/filesys.e
+
+sequence FilePath = getenv("TM_FILEPATH")
+sequence FileDir  = getenv("TM_DIRECTORY")
+
+filesys:chdir(FileDir)
+
+sequence command = sprintf("eui -test -batch %s", { FilePath })
+if system_exec(command) = 0 then
+	puts(1, "Success")
+else
+	puts(1, "Failure")
+end if
+</string>
+        <key>scope</key>
+        <string>source.euphoria</string>
+        <key>beforeRunningCommand</key>
+        <string>saveActiveFile</string>
+    </dict>
+</plist>

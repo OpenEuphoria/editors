@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>name</key>
+        <string>Procedure</string>
+        <key>uuid</key>
+        <string>9C2EDD56-B198-40F5-AA02-EC8F0812C6B6</string>
+        <key>content</key>
+        <string>--**
+-- ${1:one line description of procedure}
+--
+-- Parameters:
+-- 
+
+${2:visibility} procedure ${3:name}(${4:parameters})
+	$0
+end procedure
+</string>
+        <key>scope</key>
+        <string>source.euphoria</string>
+        <key>tabTrigger</key>
+        <string>procedure</string>
+    </dict>
+</plist>

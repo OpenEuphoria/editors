@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>name</key>
+        <string>Type</string>
+        <key>uuid</key>
+        <string>C16BB8FC-15E6-4E90-B7DC-7E59B2748BCA</string>
+        <key>content</key>
+        <string>--**
+-- ${1:one line description of type}
+--
+-- Parameters:
+--   * ##o## - object to test
+-- 
+-- Returns:
+--   ##TRUE## if ##o## is a ${2:name} type or ##FALSE## if not.
+--
+
+${3:visibility} type $2(object o)
+	-- Conditions that invalidate `o` as a $2 type
+	$0
+	
+	-- `o` is a $2
+	return 1
+end type
+</string>
+        <key>scope</key>
+        <string>source.euphoria</string>
+        <key>tabTrigger</key>
+        <string>type</string>
+    </dict>
+</plist>

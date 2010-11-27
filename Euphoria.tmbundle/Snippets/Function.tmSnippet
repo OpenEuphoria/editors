@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>name</key>
+        <string>Function</string>
+        <key>uuid</key>
+        <string>19C59048-B81F-4568-B037-A3AA8C383294</string>
+        <key>content</key>
+        <string>--**
+-- ${1:one line description of function}
+--
+-- Parameters:
+-- 
+-- Returns:
+--   ${2:return value description}
+
+${3:visibility} function ${4:name}(${5:parameters})
+	$0
+end function
+</string>
+        <key>scope</key>
+        <string>source.euphoria</string>
+        <key>tabTrigger</key>
+        <string>function</string>
+    </dict>
+</plist>

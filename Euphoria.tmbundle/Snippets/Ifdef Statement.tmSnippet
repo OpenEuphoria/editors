@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>name</key>
+        <string>Ifdef Statement</string>
+        <key>uuid</key>
+        <string>A7B973B5-681A-4E0D-8499-3F69D4675887</string>
+        <key>tabTrigger</key>
+        <string>ifdef</string>
+        <key>content</key>
+        <string>ifdef ${1:DEFINE} then
+	$0
+end ifdef</string>
+        <key>scope</key>
+        <string>source.euphoria</string>
+    </dict>
+</plist>

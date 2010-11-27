@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>name</key>
+        <string>Indent Rules</string>
+        <key>uuid</key>
+        <string>935FF0C9-D97D-44E4-B347-AA18727E585C</string>
+        <key>settings</key>
+        <dict>
+            <key>decreaseIndentPattern</key>
+            <string>^\s*([}\]]\s*$|(case|else|elsif|end|elsifdef|elsedef|then|do|entry)\b)</string>
+            <key>increaseIndentPattern</key>
+            <string>(?x)^
+    (\s*
+        (case
+        |do
+        |else|elsif|elsifdef|elsedef|entry
+        |for
+        |if|ifdef
+        |loop
+        |switch
+        |then
+        |while
+        |for|while|until
+        |((override|global|public|export)\s+)?(routine|procedure|function|type)
+	)\b
+    (?! .*? \bend\b )
+    |(  "(\\.|[^\\"])*+"  # eat a double quoted string
+	 | `(\\.|[^\\`])*+`      # eat a backtick quoted string
+     | '(\\.|[^\\'])*+'      # eat a single quoted string
+     |   [^#"']                 # eat all but comments and strings
+     )*
+     ( \{ (?!  [^}]*+ \} )
+     )
+    ).*$</string>
+        </dict>
+        <key>scope</key>
+        <string>source.euphoria</string>
+    </dict>
+</plist>

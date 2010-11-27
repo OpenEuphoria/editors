@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>name</key>
+        <string>For Statement</string>
+        <key>uuid</key>
+        <string>E7918AFB-2C91-4EFA-B4A0-6DB49BC15423</string>
+        <key>tabTrigger</key>
+        <string>for</string>
+        <key>content</key>
+        <string>for ${1:i} = ${2:1} to ${3:end count} ${4:opts}do
+	$0
+end for</string>
+        <key>scope</key>
+        <string>source.euphoria</string>
+    </dict>
+</plist>

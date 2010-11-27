@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>name</key>
+        <string>Loop Until</string>
+        <key>uuid</key>
+        <string>75FE6050-2624-4CCB-BFF4-7B3AD3E1525F</string>
+        <key>content</key>
+        <string>loop ${1:opts}do
+	$0
+	
+	until ${2:condition}
+end loop</string>
+        <key>scope</key>
+        <string>source.euphoria</string>
+        <key>tabTrigger</key>
+        <string>loop</string>
+    </dict>
+</plist>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>name</key>
+        <string>Foreach Statement</string>
+        <key>uuid</key>
+        <string>35893F74-CBDF-4BFA-A23A-56D4700B81AB</string>
+        <key>tabTrigger</key>
+        <string>foreach</string>
+        <key>content</key>
+        <string>for ${1:i} = ${2:1} to length(${3:items}) ${opts}do
+	${4:object} ${5:item} = $3[$1]
+	
+	$0
+end for</string>
+        <key>scope</key>
+        <string>source.euphoria</string>
+    </dict>
+</plist>

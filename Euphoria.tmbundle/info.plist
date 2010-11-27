@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>contactEmailRot13</key>
+        <string>wrerzl@pbjtne.pbz</string>
+        <key>contactName</key>
+        <string>Jeremy Cowgar</string>
+        <key>description</key>
+        <string>&lt;a href="http://openeuphoria.org"&gt;Euphoria&lt;/a&gt; is a fast cross platform general purpose scripting language that can also be translated directly to C.</string>
+        <key>name</key>
+        <string>Euphoria</string>
+        <key>uuid</key>
+        <string>2C53AB68-B1CC-467F-8DE6-F175C26E9C46</string>
+        <key>mainMenu</key>
+        <dict>
+            <key>items</key>
+            <array>
+                <string>DC2E2191-0318-4031-AC5C-7ED23D0F8732</string>
+            </array>
+        </dict>
+    </dict>
+</plist>
