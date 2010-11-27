@@ -77,7 +77,7 @@
                 <key>name</key>
                 <string>meta.preprocessor.euphoria</string>
                 <key>match</key>
-                <string>\b(elsifdef|elsedef|ifdef|namespace|trace|with|without)\b</string>
+                <string>\b(end ifdef|elsifdef|elsedef|ifdef|namespace|trace|with|without)\b</string>
             </dict>
             <dict>
                 <key>name</key>
@@ -204,6 +204,43 @@
                 </array>
                 <key>end</key>
                 <string>'</string>
+            </dict>
+            <dict>
+                <key>begin</key>
+                <string>\s*--\*\*</string>
+                <key>name</key>
+                <string>comment.line.eudoc.euphoria</string>
+                <key>patterns</key>
+                <array>
+                    <dict>
+                        <key>name</key>
+                        <string>keyword.other.documentation.section.eudoc.euphoria</string>
+                        <key>match</key>
+                        <string>[A-Za-z0-9\s]+:\s*$</string>
+                    </dict>
+                    <dict>
+                        <key>name</key>
+                        <string>keyword.other.documentation.bold.eudoc.euphoria</string>
+                        <key>match</key>
+                        <string>\*\*[^*]+\*\*</string>
+                    </dict>
+                    <dict>
+                        <key>name</key>
+                        <string>keyword.other.documentation.fixed.eudoc.euphoria</string>
+                        <key>match</key>
+                        <string>\#\#[^*]+\#\#</string>
+                    </dict>
+                    <dict>
+                        <key>begin</key>
+                        <string>\[\[</string>
+                        <key>name</key>
+                        <string>keyword.other.documentation.link.eudoc.euphoria</string>
+                        <key>end</key>
+                        <string>\]\]</string>
+                    </dict>
+                </array>
+                <key>end</key>
+                <string>^\s*[^-]</string>
             </dict>
             <dict>
                 <key>begin</key>
