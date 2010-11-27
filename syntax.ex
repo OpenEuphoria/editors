@@ -1,8 +1,16 @@
 --**
 -- Section Heading:
+--
 -- This file was created for the purpose of testing syntax
 -- highlighting for various editors. It is syntactically correct
--- but will not execute or do anything useful.
+-- but will **not** execute or do anything useful.
+--
+-- Parameters:
+--   * ##name## - name of person to say hello to
+--   * ##greeting## - greeting to say to `name`, defaults to "Hello"
+--
+-- See Also:
+--   [[:check_method]] and [[:say_hello]]
 --
 
 namespace abc

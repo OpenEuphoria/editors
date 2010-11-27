@@ -9,7 +9,7 @@
         <key>input</key>
         <string>none</string>
         <key>output</key>
-        <string>showAsTooltip</string>
+        <string>showAsHTML</string>
         <key>command</key>
         <string># just to remind you of some useful environment variables
 
@@ -22,17 +22,45 @@ echo Selection: "$TM_SELECTED_TEXT"</string>
         <string>#!/usr/bin/env eui
 
 include std/filesys.e
+include std/io.e
+include std/search.e
 
 sequence FilePath = getenv("TM_FILEPATH")
 sequence FileDir  = getenv("TM_DIRECTORY")
 
 filesys:chdir(FileDir)
+filesys:delete_file("ex.err")
 
-sequence command = sprintf("eui -test -batch %s", { FilePath })
+sequence command = sprintf("eui -wf ex.warn -test -batch %s", { FilePath })
 if system_exec(command) = 0 then
-	puts(1, "Success")
+	puts(1, `&lt;font color="#448844"&gt;&lt;b&gt;Success&lt;/b&gt;&lt;/font&gt;`)
 else
-	puts(1, "Failure")
+	puts(1, `&lt;font color="#ff0000"&gt;&lt;b&gt;Failure&lt;/b&gt;&lt;/font&gt;: `)
+	
+	object exerr = io:read_lines("ex.err")
+	if sequence(exerr) and length(exerr) then
+		integer colon_pos = rfind(':', exerr[1])
+		if colon_pos != 0 then
+			sequence file_name = exerr[1][1 .. colon_pos - 1]
+			sequence line_no   = exerr[1][colon_pos + 1 .. $]
+			
+			file_name = find_replace('\\', file_name, '/')
+			
+			sequence error_line = sprintf(`&lt;a href="txmt://open?url=file:///%s&amp;line=%s"&gt;%s, Line %s&lt;/a&gt;`, {
+					file_name, line_no,
+					file_name, line_no
+				})
+			printf(1, "%s\n", { error_line })
+		end if
+		puts(1, "&lt;pre&gt;\n")
+		for i = 1 to length(exerr) do
+			sequence line = exerr[i]
+			
+			printf(1, "%s\n", { line })
+		end for
+	else
+		puts(1, "Unknown Failure")
+	end if
 end if
 </string>
         <key>scope</key>
