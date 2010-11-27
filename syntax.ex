@@ -1,4 +1,5 @@
---
+--**
+-- Section Heading:
 -- This file was created for the purpose of testing syntax
 -- highlighting for various editors. It is syntactically correct
 -- but will not execute or do anything useful.
@@ -30,7 +31,7 @@ without inline
 
 ifdef CHECK_NAME then
     public constant NAME = "John Doe"
-    sequence escapes = "Hello\n\r\tHello\\ and \" or \' \0 is null"
+    export sequence escapes = "Hello\n\r\tHello\\ and \" or \' \0 is null"
     sequence bin_escapes = "Hello \b010110 World!"
     sequence hex_escapes = "Hello\x0f\x8F, \u8FAE, \U8123FEDC is the last"
 elsifdef CHECK_INAME then
