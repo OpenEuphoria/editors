@@ -27,11 +27,11 @@ include std/search.e
 
 sequence FilePath = getenv("TM_FILEPATH")
 sequence FileDir  = getenv("TM_DIRECTORY")
-
+sequence FileName = filename(FilePath)
 filesys:chdir(FileDir)
 filesys:delete_file("ex.err")
 
-sequence command = sprintf("eui -wf ex.warn -test -batch %s", { FilePath })
+sequence command = sprintf("eui -wf ex.warn -test -batch %s", { FileName })
 if system_exec(command) = 0 then
 	puts(1, `&lt;font color="#448844"&gt;&lt;b&gt;Success&lt;/b&gt;&lt;/font&gt;`)
 else
@@ -67,5 +67,7 @@ end if
         <string>source.euphoria</string>
         <key>beforeRunningCommand</key>
         <string>saveActiveFile</string>
+        <key>keyEquivalent</key>
+        <string>@N</string>
     </dict>
 </plist>

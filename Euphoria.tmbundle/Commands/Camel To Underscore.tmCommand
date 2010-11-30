@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>name</key>
+        <string>Camel To Underscore</string>
+        <key>uuid</key>
+        <string>3C18F822-49F4-4BE2-B54C-69F61C133273</string>
+        <key>input</key>
+        <string>selection</string>
+        <key>output</key>
+        <string>replaceSelectedText</string>
+        <key>command</key>
+        <string>#!/usr/bin/env eui
+
+include std/types.e
+include std/text.e
+include std/search.e
+
+sequence funcName = getenv("TM_SELECTED_TEXT")
+sequence newFuncName = ""
+
+integer start = 1
+if begins("cd", funcName) then
+	start = 3
+end if
+
+for i = start to length(funcName) do
+	if t_upper(funcName[i]) then
+		if i &gt; start then
+			newFuncName = append(newFuncName, '_')
+		end if
+		
+		newFuncName = append(newFuncName, lower(funcName[i]))
+	else
+		newFuncName = append(newFuncName, funcName[i])
+	end if
+end for
+
+puts(1, newFuncName)
+</string>
+        <key>scope</key>
+        <string></string>
+        <key>runEnvironment</key>
+        <string>windows</string>
+        <key>winCommand</key>
+        <string>#!/usr/bin/env eui
+
+function is_upper(integer c)
+	return ((c &gt;= 65) and (c &lt;= 90))
+end function
+
+function to_lower(integer c)
+	return c + 32
+end function
+
+constant funcName = getenv("TM_SELECTED_TEXT")
+if atom(funcName) then
+	abort(0)
+end if
+
+for i = 1 to length(funcName) do
+	if is_upper(funcName[i]) then
+		if i &gt; 1 then
+			puts(1, '_')
+		end if
+
+		puts(1, to_lower(funcName[i]))
+	else
+		puts(1, funcName[i])
+	end if
+end for
+</string>
+        <key>keyEquivalent</key>
+        <string>@_</string>
+    </dict>
+</plist>
