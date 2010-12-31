@@ -1,293 +1,4 @@
-; PSPad clip definition file for Euphoria 4
-; http://openeuphoria.org
-; Author: ne1    Update: 12.31.2010
-;; ideas from Arena def
-;;   (black)
-;; B (blue)  keywords/ statements
-;; D (dark gray)  xplat/testing
-;; F (fuchsia)  routines
-;; G (green)  misc/creole
-;; M (maroon)  math/stdlib
-;; N (navy)
-;; P (purple)  builtins
-;; R (red)  comments
-;; may have to read some docs to make some docs
-;; not sure how to  escape [], |, quotes, needs work
-
-[CLIP SETTINGS]
-;;CursorChar=^
-;;SelectionChar=Ý
-CursorChar=|
-SelectionChar=§
-
-[Macro definition]
-;;defaults & choices
-%condition%=@C Condition:,,x<y,x<y;x>y;x=y;x<=y;x>=y;equal(x,y),
-%conditiondef%=@C WORD:,,WINDOWS, WINDOWS;UNIX;UNITTEST,
-%without%=@C statement:,,warning, type_check;inline;profile;profile_time;warning,
-%include%=@C statement:,,std/cmdline.e, std/cmdline.e;std/console.e;std/convert.e;std/datetime.e;std/dll.e;std/eds.e;std/error.e;std/eumem.e;std/filesys.e;std/flags.e;std/get.e;std/graphcst.e;std/graphics.e;std/hash.e;std/image.e;std/io.e;std/lcid.e;std/locale.e;std/localeconv.e;std/machine.e;std/map.e;std/math.e;std/memory.e;std/net/common.e;std/net/dns.e;std/net/http.e;std/url.e;std/os.e;std/pipeio.e;std/pretty.e;std/primes.e;std/regex.e;std/safe.e;std/search.e;std/sequence.e;std/serialize.e;std/sets.e;std/socket.e;std/sort.e;std/stack.e;std/stats.e;std/task.e;std/text.e;std/types.e;std/unittest.e;std/utils.e;std/wildcard.e;std/win32/msgbox.e;std/sound.e;euphoria/keywords.e;euphoria/tokenize.e;euphoria/info.e;euphoria/syncolor.e,
-%imgfile%=@O image:,,,image files (*.jpg;*.png;*.jpg)|*.gif;*.png;*.jpg,"
-
-
-;; creole
-[doc-Hyperlink |G "[Hyperlink|]"] ]
- [[§ "|"]]
-;
-[doc-Img link |G {Img link}] ]
-{{%imgfile% | "§|"}}
-;
-[doc--**** |G start page header]
---****
--- == §|
-;
-[doc--** |G start doc header]
---**
--- §|
-;
-[doc HEADER |R Insert comment header ]
--------------------
--- File:		%FullFileName%
--- Author: 	%UserName% / %Company%
--- Date:		%Date%
--- Comment:	|
--------------------
-
-[ \n |R line break]*Ctrl+Enter
-
-|
-
-[-- |R -- comment]
--- §|
-[-- TODO FIXME |Y -- comment TODO FIXME]
---  TODO FIXME §|
-[/*...*/ |R /*comment */  ]
-/* §| */
-
-[/*\n...\n*/ |R comment /* ... */ ]
-/*
- §|
-*/
-[include|B include statement]
-include %include%§|
-;
-[without|B without statement]
-without %without%§|
-;
-[if|B if statement]
-if %condition% §| then
-elsif  then
-else
-end if
-
-[ifdef|B ifdef statement]
-ifdef %conditiondef%§| then
-elsifdef  then
-elsedef
-end ifdef
-
-[switch|B switch statement]
-switch §| with	fallthru do
-  case then
-	break
-  case else
-		fallthru
-end switch
-
-[for i|B for i ... statement]
-for i= 1| to 10 by 2 do
-	continue
-end for
-
-[loop|B loop...until statement]
-loop do
-
-	until |
-end loop
-
-[while|B while  statement]
-while | with entry with label "" do
-	entry print "entry"
-	exit ""
-end while
-
-[function |F function definition]
-public function §|(integer f)
-	return f
-end function
-
-[procedure |F procedure definition]
-public procedure §|()
-end procedure
-
-[length |P length ofstring or sequence]
-length(§|)
-;
-[printf|P printf ()]
-printf(1,"\%s =\%d",{§|,})
-;
-[sprintf|P sprintf ()]
-sprintf("\%s \%d",{§|,})
-;
-[sprint|P sprint ()]
-sprint(§|)
-;
-[trace |D trace ]
-with|out trace  --
-;
-[trace3 |D trace3 ]
-trace(|3) --0123
-;
-[label |B label ]
-label "§|"
-;
-[goto |B goto ]
-goto "§|"
-;
-[eucode |G  eucode]
--- <eucode>
--- </eucode>
-;
-[tryokeveace |G  tryokeveace]
--- {{{
--- }}}
-;
-[div zero |D div zero]
-?2/0
-;
-[test_equal |D test_equal]
-test_equal("", , )
-;
-[test_not_equal |D test_not_equal]
-test_not_equal("", , )
-;
-;
-[with trace(3) |D  with trace(3)]
-with trace  --out
-trace(3) --0123
-;
-[public  |F public ]
-public 
-;
-[export  |F export ]
-export 
-;
-[global  |F global ]
-global 
-;
-[abs |M Returns the absolute value of a number]
-abs(|number)
-[acos |M Returns the arccosine of a number]
-acos(|number)
-[asin |M Returns the arcsine of a number]
-asin(|number)
-[atan |M Returns the arctangent of a number]
-atan(|number)
-[ceil |M Returns the smallest integer greater than or equal to its numeric argument]
-ceil(|number)
-[floor |M Returns the largest integer greater than or equal to its numeric argument]
-floor(|number)
-[repeat |M repeat]
-repeat(0,|number)
-;
-[Keywords]
-include std/cmdline.e
-include std/console.e
-include std/convert.e
-include std/datetime.e
-include std/dll.e
-include std/eds.e
-include std/error.e
-include std/eumem.e
-include std/filesys.e
-include std/flags.e
-include std/get.e
-include std/graphcst.e
-include std/graphics.e
-include std/image.e
-include std/hash.e
-include std/io.e
-include std/lcid.e
-include std/locale.e
-include std/localeconv.e
-include std/machine.e
-include std/map.e
-include std/math.e
-include std/memory.e
-include std/net/common.e
-include std/net/dns.e
-include std/net/http.e
-include std/net/url.e
-include std/os.e
-include std/pipeio.e
-include std/pretty.e
-include std/primes.e
-include std/regex.e
-include std/safe.e
-include std/search.e
-include std/sequence.e
-include std/serialize.e
-include std/socket.e
-include std/sort.e
-include std/stack.e
-include std/stats.e
-include std/task.e
-include std/text.e
-include std/types.e
-include std/unittest.e
-include std/utils.e
-include std/wildcard.e
-include std/win32/msgbox.e
-include std/win32/sound.e
-include euphoria/keywords.e
-include euphoria/tokenize.e
-include euphoria/info.e
-include euphoria/syncolor.e
-
-with inline
-without inline
-with trace
-without trace
-with type_check
-without type_check
-with profile
-without profile
-with profile_time
-without profile_time
-end for
-end function
-end if
-end ifdef
-end loop
-end procedure
-end switch
-end type
-end while
-
-boolean
-continue
-delete
-do
-E
-else
-export
-FALSE
-function
-goto
-hash
-include
-integer
-namespace
-NULL
-override
-PI
-public
-return
-sqrt2
-switch
-TRUE
-type
-while
-
+ #euohoria list of words 
 ADD
 ADDRESS_LENGTH()
 ADDR_ADDRESS()
@@ -1042,6 +753,7 @@ YEAR
 YEARS
 YELLOW
 abbreviate_path()
+abort()
 abs()
 absolute_path()
 accept()
@@ -1060,7 +772,9 @@ allocate_wstring()
 allocations()
 allow_break()
 ampm()
+and_bits()
 any_key()
+append()
 append_lines()
 apply()
 approx()
@@ -1068,10 +782,12 @@ arccos()
 arccosh()
 arcsin()
 arcsinh()
+arctan()
 arctanh()
 ascii_string()
 assert()
 atan2()
+atom()
 atom_to_float32()
 atom_to_float64()
 attr_to_colors()
@@ -1091,9 +807,14 @@ build_list()
 builtins()
 byte_range()
 bytes_to_int()
+c_func()
+c_proc()
 calc_hash()
 calc_primes()
+call()
 call_back()
+call_func()
+call_proc()
 canon2win()
 canonical()
 canonical_path()
@@ -1109,15 +830,20 @@ check_free_list()
 checksum()
 clear()
 clear_directory()
+clear_screen()
+close()
 cmd_parse()
 color()
 colors_to_attr()
 columnize()
 combine()
+command_line()
+compare()
 connect()
 console_colors()
 copy()
 copy_file()
+cos()
 cosh()
 count()
 crash()
@@ -1132,6 +858,7 @@ curdir()
 current_dir()
 cursor()
 custom_sort()
+date()
 datetime()
 day_abbrs()
 day_names()
@@ -1176,7 +903,9 @@ define_c_func()
 define_c_proc()
 define_c_var()
 deg2rad()
+delete()
 delete_file()
+delete_routine()
 dep_works()
 dequote()
 deserialize()
@@ -1197,6 +926,7 @@ encode()
 ends()
 ensure_in_list()
 ensure_in_range()
+equal()
 error_code()
 error_message()
 error_names()
@@ -1220,6 +950,7 @@ filebase()
 fileext()
 filename()
 filter()
+find()
 find_all()
 find_all_but()
 find_any()
@@ -1233,6 +964,7 @@ flags_to_string()
 flatten()
 float32_to_atom()
 float64_to_atom()
+floor()
 flush()
 for_each()
 format()
@@ -1254,6 +986,7 @@ get_dstring()
 get_encoding_properties()
 get_integer16()
 get_integer32()
+get_key()
 get_lang_path()
 get_option()
 get_ovector_size()
@@ -1262,12 +995,17 @@ get_position()
 get_rand()
 get_screen_char()
 get_text()
+getc()
+getenv()
+gets()
 graphics_mode()
 graphics_point()
 harmean()
 has()
 has_console()
 has_match()
+hash()
+head()
 hex_text()
 host_by_addr()
 host_by_name()
@@ -1275,14 +1013,17 @@ http_get()
 http_post()
 iff()
 iif()
+include_paths()
 info()
 init_class()
 init_curdir()
+insert()
 insertion_sort()
 instance()
 int_to_bits()
 int_to_bytes()
 intdiv()
+integer()
 integer_array()
 is_DEP_supported()
 is_developmental()
@@ -1309,6 +1050,7 @@ kurtosis()
 lang_load()
 largest()
 last()
+length()
 listen()
 load()
 load_map()
@@ -1316,13 +1058,17 @@ locale_canonical()
 locate_file()
 lock_file()
 lock_type()
+log()
 log10()
 lookup()
 lower()
 machine_addr()
+machine_func()
+machine_proc()
 malloc()
 map()
 mapping()
+match()
 match_all()
 match_any()
 match_from()
@@ -1332,6 +1078,8 @@ max()
 maybe_any_key()
 median()
 memDLL_id()
+mem_copy()
+mem_set()
 memory_used()
 merge()
 message_box()
@@ -1355,15 +1103,20 @@ new_from_kvpairs()
 new_from_string()
 new_time()
 next_prime()
+not_bits()
 now()
 now_gmt()
 number()
 number_array()
+object()
+open()
 open_dll()
 optimize()
 option_spec()
 option_spec_to_string()
+option_switches()
 or_all()
+or_bits()
 pad_head()
 pad_tail()
 page_aligned_address()
@@ -1377,22 +1130,38 @@ patch()
 pathinfo()
 pathname()
 pcre_copyright()
+peek()
+peek2s()
+peek2u()
+peek4s()
+peek4u()
 peek_end()
+peek_string()
 peek_top()
 peek_wstring()
+peeks()
 pivot()
+platform()
 platform_locale()
 platform_name()
+poke()
+poke2()
+poke4()
 poke_string()
 poke_wstring()
 pop()
+position()
 positive_int()
 posix_names()
+power()
 powof2()
 prepare_block()
+prepend()
 pretty_print()
 pretty_sprint()
 prime_list()
+print()
+printf()
 process()
 process_lines()
 product()
@@ -1405,9 +1174,11 @@ put()
 put_integer16()
 put_integer32()
 put_screen_char()
+puts()
 quote()
 rad2deg()
 ram_space()
+rand()
 rand_range()
 range()
 raw_frequency()
@@ -1420,13 +1191,17 @@ receive_from()
 regex()
 register_block()
 rehash()
+remainder()
+remove()
 remove_all()
 remove_directory()
 remove_dups()
 remove_item()
 remove_subseq()
 rename_file()
+repeat()
 repeat_pattern()
+replace()
 reset()
 retain_all()
 reverse()
@@ -1438,6 +1213,7 @@ roll()
 rotate()
 rotate_bits()
 round()
+routine_id()
 safe_address()
 safe_address_list()
 sample()
@@ -1449,6 +1225,7 @@ seek()
 select()
 send()
 send_to()
+sequence()
 sequence_array()
 serialize()
 series()
@@ -1477,6 +1254,7 @@ shuffle()
 shutdown()
 sign()
 sim_index()
+sin()
 sinh()
 size()
 skewness()
@@ -1488,10 +1266,13 @@ socket()
 sort()
 sort_columns()
 sound()
+splice()
 split()
 split_any()
 split_limit()
 sprint()
+sprintf()
+sqrt()
 stack()
 start_time()
 statistics()
@@ -1504,6 +1285,8 @@ subtract()
 sum()
 sum_central_moments()
 swap()
+system()
+system_exec()
 t_alnum()
 t_alpha()
 t_ascii()
@@ -1524,8 +1307,19 @@ t_text()
 t_upper()
 t_vowel()
 t_xdigit()
+tail()
+tan()
 tanh()
+task_clock_start()
+task_clock_stop()
+task_create()
 task_delay()
+task_list()
+task_schedule()
+task_self()
+task_status()
+task_suspend()
+task_yield()
 temp_file()
 test_equal()
 test_exec()
@@ -1540,6 +1334,7 @@ test_write()
 text_color()
 text_rows()
 threshold()
+time()
 to_integer()
 to_number()
 to_string()
@@ -1589,6 +1384,7 @@ w32_name_canonical()
 w32_names()
 wait_key()
 walk_dir()
+warning()
 warning_file()
 weeks_day()
 where()
@@ -1599,5 +1395,5 @@ write_file()
 write_lines()
 writef()
 writefln()
+xor_bits()
 years_day()
-
