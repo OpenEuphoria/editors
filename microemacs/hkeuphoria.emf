@@ -115,6 +115,7 @@ set-variable .fhook-euphoria.setup-labels  "|EuDoc highlighting|Highlight bad st
     hilight .hilight.euphoria 1 "case"                   .scheme.keyword
     hilight .hilight.euphoria 1 "constant"               .scheme.keyword
     hilight .hilight.euphoria 1 "continue"               .scheme.keyword
+    hilight .hilight.euphoria 1 "deprecate"              .scheme.keyword
     hilight .hilight.euphoria 1 "do"                     .scheme.keyword
     hilight .hilight.euphoria 1 "end"                    .scheme.keyword
     hilight .hilight.euphoria 1 "else"                   .scheme.keyword

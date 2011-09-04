@@ -27,7 +27,7 @@ endif
 syn keyword euphoriaKeywords	   and as
 syn keyword euphoriaKeywords	   by
 syn keyword euphoriaKeywords	   case constant
-syn keyword euphoriaKeywords	   do
+syn keyword euphoriaKeywords	   deprecate do
 syn keyword euphoriaKeywords	   else elsif end enum
 syn keyword euphoriaKeywords	   for function
 syn keyword euphoriaKeywords	   if

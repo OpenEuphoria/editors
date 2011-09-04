@@ -114,6 +114,7 @@
 	"case"		kw
 	"constant"	kw
 	"continue"	kw
+	"deprecate"	kw
 	"do"		kw
 	"end"		kw
 	"else"		kw

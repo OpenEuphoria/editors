@@ -113,6 +113,7 @@
 					<Keyword text="case" />
 					<Keyword text="constant" />
 					<Keyword text="continue" />
+					<Keyword text="deprecate" />
 					<Keyword text="do" />
 					<Keyword text="else" />
 					<Keyword text="elsif" />
