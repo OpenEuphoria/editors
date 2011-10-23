@@ -20,7 +20,7 @@ include std/regex.e
 
 -- Line comment, mispeled
 
-function abc()
+deprecate function abc()
     return 10
 end function
 

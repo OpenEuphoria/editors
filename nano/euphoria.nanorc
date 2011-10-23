@@ -15,7 +15,7 @@ color brightred "\<[A-Z_][0-9A-Z_]+\>"
 color brightmagenta "\<(elsifdef|elsedef|ifdef|include|namespace|with|without)\>"
 
 # Keywords
-color brightgreen "\<(as|and|break|by|case|constant|continue|do|end|else|elsif|exit|entry|enum|for|function|goto|if|label|loop|not|or|procedure|return|retry|switch|then|to|type|until|while|xor)\>"
+color brightgreen "\<(as|and|break|by|case|constant|continue|deprecate|do|end|else|elsif|exit|entry|enum|for|function|goto|if|label|loop|not|or|procedure|return|retry|switch|then|to|type|until|while|xor)\>"
 
 # Built-in types
 color green "\<(atom|integer|sequence|object)\>"

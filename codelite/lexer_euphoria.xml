@@ -10,7 +10,7 @@
 	installation.
 -->
 <Lexer Name="Euphoria" Id="3">
-  <KeyWords0>as and by case constant do end else elsif enum export for function global include if label loop not or override procedure public switch then type to until while xor</KeyWords0>
+  <KeyWords0>as and by case constant deprecate do end else elsif enum export for function global include if label loop not or override procedure public switch then type to until while xor</KeyWords0>
   <KeyWords1>object sequence integer atom</KeyWords1>
   <KeyWords2>break continue entry exit goto glabel retry return</KeyWords2>
   <KeyWords3>ifdef elsifdef elsedef trace with without</KeyWords3>

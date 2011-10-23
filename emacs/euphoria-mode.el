@@ -44,7 +44,7 @@
 ;; Keywords:
 ;;
 ;; (regexp-opt '("as" "and" "break" "by" "case" "constant" "continue"
-;;   "do" "end" "else" "elsif" "elsedef" "elsifdef" "exit" "entry" "enum"
+;;   "deprecate" "do" "end" "else" "elsif" "elsedef" "elsifdef" "exit" "entry" "enum"
 ;;   "export" "for" "function" "global" "goto" "include" "if" "ifdef"
 ;;   "label" "loop" "namespace" "not" "or" "override" "procedure" "public"
 ;;   "return" "retry" "switch" "then" "type" "to" "until" "while" "with" "without"
@@ -63,13 +63,13 @@
    '("\\<0x[0-9A-Fa-f_]+\\>" . font-lock-constant-face)
    '("\\<[A-Z0-9][^ \t\n\r]*\\>" . font-lock-constant-face)
    '("\\<\\(atom\\|integer\\|object\\|sequence\\)\\>" . font-lock-type-face)
-   '("\\<\\(a\\(?:nd\\|s\\)\\|b\\(?:reak\\|y\\)\\|c\\(?:ase\\|on\\(?:stant\\|tinue\\)\\)\\|do\\|e\\(?:ls\\(?:e\\(?:def\\)?\\|if\\(?:def\\)?\\)\\|n\\(?:d\\|try\\|um\\)\\|x\\(?:\\(?:i\\|por\\)t\\)\\)\\|f\\(?:or\\|unction\\)\\|g\\(?:lobal\\|oto\\)\\|i\\(?:f\\(?:def\\)?\\|nclude\\)\\|l\\(?:abel\\|oop\\)\\|n\\(?:amespace\\|ot\\)\\|o\\(?:r\\|verride\\)\\|p\\(?:rocedure\\|ublic\\)\\|ret\\(?:ry\\|urn\\)\\|switch\\|t\\(?:hen\\|o\\|ype\\)\\|until\\|w\\(?:hile\\|ith\\(?:out\\)?\\)\\|xor\\)\\>" . font-lock-builtin-face)
+   '("\\<\\(a\\(?:nd\\|s\\)\\|b\\(?:reak\\|y\\)\\|c\\(?:ase\\|on\\(?:stant\\|tinue\\)\\)\\|deprecate\\|do\\|e\\(?:ls\\(?:e\\(?:def\\)?\\|if\\(?:def\\)?\\)\\|n\\(?:d\\|try\\|um\\)\\|x\\(?:\\(?:i\\|por\\)t\\)\\)\\|f\\(?:or\\|unction\\)\\|g\\(?:lobal\\|oto\\)\\|i\\(?:f\\(?:def\\)?\\|nclude\\)\\|l\\(?:abel\\|oop\\)\\|n\\(?:amespace\\|ot\\)\\|o\\(?:r\\|verride\\)\\|p\\(?:rocedure\\|ublic\\)\\|ret\\(?:ry\\|urn\\)\\|switch\\|t\\(?:hen\\|o\\|ype\\)\\|until\\|w\\(?:hile\\|ith\\(?:out\\)?\\)\\|xor\\)\\>" . font-lock-builtin-face)
 
    )
   "Minimal highlighting for Euphoria mode.")
 
 (defconst euphoria-imenu-generic-expression
-  '(("Routine" "^\\(export\\|public\\|global\\|override\\)?[ \t]*\\(function\\|procedure\\)[ \t]+\\([a-z]+\\)" 3)
+  '(("Routine" "^\\(deprecate)?[ \t]*(export\\|public\\|global\\|override\\)?[ \t]*\\(function\\|procedure\\)[ \t]+\\([a-z]+\\)" 3)
     )
   "Generic Imenu setup")
 
