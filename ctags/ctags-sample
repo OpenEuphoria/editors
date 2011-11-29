@@ -1,0 +1,17 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	Development	//
+EuphoriaParser	.\euphoria.c	/^extern parserDefinition* EuphoriaParser (void)$/;"	f	line:53	signature:(void)
+_1of1function	.\ctags_euphoria_test.e	/^function _1of1function() end function$/;"	f	line:14
+_1of1memstruct	.\ctags_euphoria_test.e	/^memstruct _1of1memstruct$/;"	s	line:19
+_1of1memtype	.\ctags_euphoria_test.e	/^memtype amemtype as _1of1memtype$/;"	m	line:17
+_1of1memunion	.\ctags_euphoria_test.e	/^memunion _1of1memunion$/;"	s	line:22
+_1of1procedure	.\ctags_euphoria_test.e	/^function _1of1procedure() end function$/;"	f	line:15
+_1of4type	.\ctags_euphoria_test.e	/^public type _1of4type(object w)$/;"	t	line:8
+_2of4type	.\ctags_euphoria_test.e	/^export type _2of4type(sequence z) end type$/;"	t	line:10
+_3of4type	.\ctags_euphoria_test.e	/^global type _3of4type(integer y) end type$/;"	t	line:11
+_4of4type	.\ctags_euphoria_test.e	/^override type _4of4type(atom x) end type$/;"	t	line:12
+installEuphoriaRegex	.\euphoria.c	/^static void installEuphoriaRegex (const langType language)$/;"	f	line:26	file:	signature:(const langType language)
