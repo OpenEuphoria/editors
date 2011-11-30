@@ -1,17 +1,24 @@
 !_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
 !_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
-!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_NAME	Exuberant Ctags	5.8//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	Development	//
-EuphoriaParser	.\euphoria.c	/^extern parserDefinition* EuphoriaParser (void)$/;"	f	line:53	signature:(void)
-_1of1function	.\ctags_euphoria_test.e	/^function _1of1function() end function$/;"	f	line:14
-_1of1memstruct	.\ctags_euphoria_test.e	/^memstruct _1of1memstruct$/;"	s	line:19
-_1of1memtype	.\ctags_euphoria_test.e	/^memtype amemtype as _1of1memtype$/;"	m	line:17
-_1of1memunion	.\ctags_euphoria_test.e	/^memunion _1of1memunion$/;"	s	line:22
-_1of1procedure	.\ctags_euphoria_test.e	/^function _1of1procedure() end function$/;"	f	line:15
-_1of4type	.\ctags_euphoria_test.e	/^public type _1of4type(object w)$/;"	t	line:8
-_2of4type	.\ctags_euphoria_test.e	/^export type _2of4type(sequence z) end type$/;"	t	line:10
-_3of4type	.\ctags_euphoria_test.e	/^global type _3of4type(integer y) end type$/;"	t	line:11
-_4of4type	.\ctags_euphoria_test.e	/^override type _4of4type(atom x) end type$/;"	t	line:12
-installEuphoriaRegex	.\euphoria.c	/^static void installEuphoriaRegex (const langType language)$/;"	f	line:26	file:	signature:(const langType language)
+_1of1memstruct	./ctags_euphoria_test.e	/^memstruct _1of1memstruct$/;"	s	line:66
+_1of1memtype	./ctags_euphoria_test.e	/^memtype _0of1amemtype as _1of1memtype$/;"	m	line:58
+_1of1memunion	./ctags_euphoria_test.e	/^memunion _1of1memunion  --$/;"	u	line:60
+_1of1procedure	./ctags_euphoria_test.e	/^procedure _1of1procedure() end procedure$/;"	p	line:54
+_1of2c	./ctags_euphoria_test.e	/^constant _1of2c=0$/;"	c	line:20
+_1of2function	./ctags_euphoria_test.e	/^function _1of2function() return TRUE end function$/;"	f	line:47
+_1of4word	./ctags_euphoria_test.e	/^with define _1of4word$/;"	i	line:12
+_1of5type	./ctags_euphoria_test.e	/^type _1of5type(object w)$/;"	t	line:27
+_2of2function	./ctags_euphoria_test.e	/^function _2of2function($/;"	f	line:48
+_2of3namespace	./ctags_euphoria_test.e	/^include std\/types.e as _2of3namespace$/;"	n	line:9
+_2of4word	./ctags_euphoria_test.e	/^without define _2of4word$/;"	i	line:13
+_2of5type	./ctags_euphoria_test.e	/^public type _2of5type(object w)$/;"	t	line:31
+_3of3namespace	./ctags_euphoria_test.e	/^public include "std\\\\io.e" as _3of3namespace  --not a real string$/;"	n	line:10
+_3of4word	./ctags_euphoria_test.e	/^ifdef _3of4word then$/;"	i	line:15
+_3of5type	./ctags_euphoria_test.e	/^	export type _3of5type(sequence z) return TRUE end type$/;"	t	line:35
+_4of4word	./ctags_euphoria_test.e	/^elsifdef _4of4word then$/;"	i	line:16
+_4of5type	./ctags_euphoria_test.e	/^ global type _4of5type(integer y)return TRUE end type$/;"	t	line:36
+_5of5type	./ctags_euphoria_test.e	/^override type _5of5type($/;"	t	line:38
