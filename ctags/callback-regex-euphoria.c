@@ -15,13 +15,13 @@
 *   	multiline function sig is not collected
 *   	everything after mem* or constant is captured
 *   	next version should be full parser.
-*  	t11B29p02:00 can callback regex handle multiline?
-*  		this may still fail for public\nitem(\n) to get function sig
-*  		really not much different than the simple parser so far
-*  		added collect namespace & ifdef, elsifdef, define words
-*  		may want to get define but not ifdef/elsifdef?
-*  		output a little weird for the include lines and slashes
-*  		tag parser still needs to be implemented
+*  t11B29p02:00 can callback regex handle multiline?
+*   	this may still fail for public\nitem(\n) to get function sig
+*   	really not much different than the simple parser so far
+*   	added collect namespace & ifdef, elsifdef, define words
+*   	may want to get define but not ifdef/elsifdef?
+*   	output a little weird for the include lines and slashes
+*   	tag parser still needs to be implemented
 */
 
 /*
@@ -37,15 +37,16 @@
 
 
 static kindOption EuphoriaKinds [] = {
-	{ TRUE, 'n', "namespace", " xnamespace" },
-	{ TRUE, 'm', "memtype", " xmemtype" },
-	{ TRUE, 's', "memstruct", " xmemstruct" },
-	{ TRUE, 'u', "memunion", " xmemunion" },
-	{ TRUE, 'c', "constant", " xconstant" },
-	{ TRUE, 't', "type", " xtype" },
-	{ TRUE, 'f', "function", " xfunction" },
-	{ TRUE, 'p', "procedure", " xprocedure" },
-	{ TRUE, 'i', "ifelsedefs", " xifelsedefs" }
+	{ TRUE, 'n', "namespace", " namespace x or include y as x" },
+	{ TRUE, 'm', "memtype", " memtype" },
+	{ TRUE, 's', "memstruct", " memstruct" },
+	{ TRUE, 'u', "memunion", " memunion" },
+	{ TRUE, 'c', "constant", " constant" },
+	{ TRUE, 't', "type", " type" },
+	{ TRUE, 'f', "function", " function" },
+	{ TRUE, 'p', "procedure", " procedure" },
+	{ TRUE, 'i', "ifelsedefs", " ifdef,elsifdef,define words" },
+	{ TRUE, 'l', "label ", " label target for loop/goto" }
 };
 
 typedef enum {
@@ -57,7 +58,8 @@ typedef enum {
 	ktype,
 	kfunction,
 	kprocedure,
-	kifelsedef
+	kifelsedef,
+	klabel
  } EuphoriaKind;
 /* FUNCTION DEFINITIONS */
 
@@ -131,20 +133,7 @@ static void defConst (const char *const line, const regexMatch *const matches,
 }
 
 
-static void deIfDef (const char *const line, const regexMatch *const matches,
-						const unsigned int count)
-{
-	if (count > 1)    /* should always be true per regex */
-	{
-		vString *const name = vStringNew ();
-		//later may want to distinguish ifdef,elsifdef, with/out  define 
-		vStringNCopyS (name, line + matches [count-1].start, matches [count-1].length);
-		makeSimpleTag (name, EuphoriaKinds, kifelsedef);
-	}
-}
-
-
-static void defNS (const char *const line, const regexMatch *const matches,
+static void defNs (const char *const line, const regexMatch *const matches,
 						const unsigned int count)
 {
 	if (count > 1 )    /* should always be true per regex */
@@ -156,6 +145,38 @@ static void defNS (const char *const line, const regexMatch *const matches,
 		// include y as x should be x=$
 		vStringNCopyS (name, line + matches [count-1].start, matches [count-1].length);
 		makeSimpleTag (name, EuphoriaKinds, knamespace);
+	}
+}
+
+
+
+static void defIfDef (const char *const line, const regexMatch *const matches,
+						const unsigned int count)
+{
+	if (count > 1)    /* should always be true per regex */
+	{
+		vString *const name = vStringNew ();
+		//later may want to distinguish ifdef,elsifdef, with/out  define 
+		vStringNCopyS (name, line + matches [count-1].start, matches [count-1].length);
+		makeSimpleTag (name, EuphoriaKinds, kifelsedef);
+	}
+}
+
+static void defLabel (const char *const line, const regexMatch *const matches,
+						const unsigned int count)
+{
+	if (count > 1 )    /* should always be true per regex */
+	{
+		vString *const name = vStringNew ();
+		vStringNCopyS (name, line + matches [count-1].start, matches [count-1].length);
+
+		// would like to prepend label to the found expression
+		// label goto "whatever" instead of goto "whatever" 
+		// displayed after the filename in the default output
+		// name at this point only has whatever
+		// not sure how to access the expression w/o a parser
+
+		makeSimpleTag (name, EuphoriaKinds, klabel);
 	}
 }
 
@@ -176,6 +197,7 @@ static void installEuphoriaRegex (const langType language)
 	addCallbackRegex (language,
 			"^[ \t\n]*(global|export|public|override)*[ \t\n]*(procedure|function)+[ \t\n]+([a-zA-Z0-9_]+)",
 				NULL, defFunDef);
+
 	addCallbackRegex (language,
 			"^[ \t\n]*(global|export|public|override)*[ \t\n]*type[ \t\n]+([a-zA-Z0-9_]+)",
 				NULL, defType);
@@ -183,28 +205,33 @@ static void installEuphoriaRegex (const langType language)
 	//will miss some, regx parser can't collect from list
 	addCallbackRegex (language,
 			"^[ \t\n]*(global|export|public|override)*[ \t\n]*constant[ \t\n,]+([a-zA-Z0-9_]+)",
-					NULL, defConst);
+				NULL, defConst);
 
 	//memstruct/union/type currently in a branch. 
 	// this won't affect parsing std euphoria
 	addCallbackRegex (language,
 			"^[ \t\n]*(global|export|public|override)*[ \t\n]*mem(struct|union)+[ \t\n]+([a-zA-Z0-9_]+)",
-					NULL, defMemStruct);
+				NULL, defMemStruct);
 
 	//memtype might be a list and it would only get the first one
 	addCallbackRegex (language,
 			"^[ \t\n]*(global|export|public|override)*[ \t\n]*memtype[ \t\n]+([a-zA-Z0-9_]+)[ \t\n]+as[ \t\n]+([a-zA-Z0-9_]+)",
-					NULL, defMemType);
+				NULL, defMemType);
 
 	//namespace x vrs include y as x
 	//could miss some hypothetical namespace called aswhatever?
 	addCallbackRegex (language,
 			"^[ \t\n]*(public)*[ \t\n]*(include|namespace)+[ \t\n]+([a-zA-Z0-9\\/~#:\"._-]+)[ \t\n]*(as)*[ \t\n]*([a-zA-Z0-9_]*)",
-					NULL, defNS);
+				NULL, defNs);
 
 	addCallbackRegex (language,
 			"^[ \t\n]*(ifdef|elsifdef|with|without)+[ \t\n]+(not|define)*[ \t\n]*([a-zA-Z0-9_]+)",
-					NULL, deIfDef);
+				NULL, defIfDef);
+
+	addCallbackRegex (language,
+			//add for/while/etc targets, is /s required after keyword?
+			"^[ \t\n]*(label|goto|continue|exit)+[ \t\n]+\"([^\"]+)",  //\"
+				NULL, defLabel);
 }
 
 /* Create parser definition stucture */

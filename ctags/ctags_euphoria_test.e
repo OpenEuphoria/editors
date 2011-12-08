@@ -53,9 +53,9 @@ function _2of2function(
 
 procedure _1of1procedure() end procedure
 
+memtype _0o21amemtype as _1of1memtype
 memtype  
-	int as _0of1amemtype
-memtype _0of1amemtype as _1of1memtype
+	int as _1of2amemtype
 
 memunion _1of1memunion  --
 	int i
@@ -68,4 +68,9 @@ memstruct _1of1memstruct
 	_1of1memunion y
 end memstruct
 
+while TRUE label "_0of2label" do 
+	goto "_1of2label"
+end while 
+
+label "_2of2label"
 --
