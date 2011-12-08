@@ -69,8 +69,10 @@ memstruct _1of1memstruct
 end memstruct
 
 while TRUE label "_0of2label" do 
+	if 0 then continue "_0of2label" end if
 	goto "_1of2label"
 end while 
 
+label "_1of2label"
 label "_2of2label"
 --

@@ -1,6 +1,8 @@
 ctags is a very old program to extract identifiers from source,
-Exuberant Ctags current release version	5.8 as of 2011
+these tags can be used by code editors and support programs to
+jump to the file containing the tag or help with completion.
 
+Exuberant Ctags current release version	5.8 as of 2011
 get ctags source or binary & source from 
 from http://ctags.sourceforge.net
 or from their svn repo or an archive of the repo trunk
@@ -30,10 +32,10 @@ copy one of the euphoria.c parsers
 to euphoria.c in the ctags source directory
 
 replace eiffel language in parsers.h 
-and in source.mak 2 places with euphoria
-alternatly you would have to use the commandline
-to force euphoria or eiffel if you had both active
-because both languages use .e file name extension
+and in source.mak 2 places with "euphoria".
+alternatively, you would have to use the commandline
+to force Euphoria or Eiffel if you had both active,
+because both languages use the .e file name extension.
 
 build ctags executable using one of the makefiles.
 on windows any of the minGW compilers works well.

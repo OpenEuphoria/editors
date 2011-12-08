@@ -139,10 +139,8 @@ static void defNs (const char *const line, const regexMatch *const matches,
 	if (count > 1 )    /* should always be true per regex */
 	{
 		vString *const name = vStringNew ();
-		//this will need work to distinguish namespace x from as x
-		//namespace x should be count=4, 
-		//y as x should be x=count=$
-		// include y as x should be x=$
+
+		//namespace x or as x
 		vStringNCopyS (name, line + matches [count-1].start, matches [count-1].length);
 		makeSimpleTag (name, EuphoriaKinds, knamespace);
 	}
@@ -221,7 +219,10 @@ static void installEuphoriaRegex (const langType language)
 	//namespace x vrs include y as x
 	//could miss some hypothetical namespace called aswhatever?
 	addCallbackRegex (language,
-			"^[ \t\n]*(public)*[ \t\n]*(include|namespace)+[ \t\n]+([a-zA-Z0-9\\/~#:\"._-]+)[ \t\n]*(as)*[ \t\n]*([a-zA-Z0-9_]*)",
+			"^[ \t\n]*(global|public)*[ \t\n]*(include)+[ \t\n]+([a-zA-Z0-9\\/~#:\"._-]+)[ \t\n]+(as)+[ \t\n]+([a-zA-Z0-9_]*)",
+				NULL, defNs);
+	addCallbackRegex (language,
+			"^[ \t\n]*(namespace)+[ \t\n]+([a-zA-Z0-9_]*)",
 				NULL, defNs);
 
 	addCallbackRegex (language,
@@ -232,6 +233,11 @@ static void installEuphoriaRegex (const langType language)
 			//add for/while/etc targets, is /s required after keyword?
 			"^[ \t\n]*(label|goto|continue|exit)+[ \t\n]+\"([^\"]+)",  //\"
 				NULL, defLabel);
+
+// 	addCallbackRegex (language,
+// 			//except not|define
+// 			"^[ \t\n]*(with|without)+[ \t\n]+(.+)",
+// 				NULL, defIfDef);
 }
 
 /* Create parser definition stucture */
