@@ -277,7 +277,7 @@ Boston, MA  02110-1301, USA.
 			<keyword attribute="Keyword" String="with_without" context="With Directive" firstNonSpace="true"/>
 			
 			<keyword attribute="Keyword" context="#stay" String="keywords"/>
-			<keyword attribute="Type" context="#stay" String="types"/>
+			<keyword attribute="Type" String="types"/>
 			<keyword attribute="Keyword" context="Memstruct" String="memstruct_declaration" beginRegion="regMemstruct"/>
 			
 			<Float attribute="Float" context="#stay"/>
@@ -298,6 +298,10 @@ Boston, MA  02110-1301, USA.
 			<keyword attribute="Keyword" String="memtype_declaration" context="Memtype" beginRegion="regMemtype"/>
 			<RegExpr attribute="Keyword" String="\bsizeof\b" context="Size Of"/>
 			<AnyChar String="$?" attribute="Keyword"/>
+			
+			<AnyChar String=",./+=-*!&amp;:|[]&lt;&gt;" attribute="Symbol" context="#stay"/>
+			<DetectChar attribute="Symbol" char="{" context="#stay" beginRegion="regSequence"/>
+			<DetectChar attribute="Symbol" char="}" context="#stay" endRegion="regSequence"/>
 		</context>
 
 		<context attribute="String" lineEndContext="#stay" name="String">
@@ -331,14 +335,14 @@ Boston, MA  02110-1301, USA.
 		<context name="Hex" attribute="Hex" lineEndContext="#pop">
 			<DetectSpaces context="#pop"/>
 			<AnyChar String="1234567890_abcdefABCDEF" context="#stay"/>
-			<RegExpr String="." context="#pop"/>
+			<RegExpr String="." context="#pop" lookAhead="true"/>
 		</context>
 		<context name="Number" attribute="Number" lineEndContext="#pop">
 			<DetectSpaces context="#pop"/>
 			<AnyChar String="1234567890_eE+-" context="#stay"/>
-			<RegExpr String="." context="#pop"/>
+			<RegExpr String="." context="#pop" lookAhead="true"/>
 		</context>
-		<context name="IfDef" attribute="Normal Text">
+		<context name="IfDef" attribute="Normal Text"  lineEndContext="#stay">
 			<keyword String="ifdef_conditions" attribute="Keyword"/>
 			<RegExpr String="\bthen\b" attribute="Keyword" context="#pop"/>
 			<DetectIdentifier attribute="Directive"/>
@@ -347,7 +351,7 @@ Boston, MA  02110-1301, USA.
 			<RegExpr attribute="Type" String="\sas\s" context="Namespace Declaration"/>
 			<DetectIdentifier context="#stay" attribute="String"/>
 		</context>
-		<context name="Namespace Declaration" attribute="Directive">
+		<context name="Namespace Declaration" attribute="Directive" lineEndContext="#stay">
 			<DetectIdentifier attribute="Directive" context="#pop"/>
 		</context>
 		<context name="With Directive" attribute="Directive" lineEndContext="#pop">
@@ -378,14 +382,15 @@ Boston, MA  02110-1301, USA.
 			<DetectChar char="$" attribute="Keyword" context="#pop" endRegion="regMemtype"/>
 			<RegExpr String="\bas\b" attribute="Keyword" context="Memtype As"/>
 		</context>
-		<context name="Memtype As">
+		
+		<context name="Memtype As" lineEndContext="#stay">
 			<DetectIdentifier context="MaybeEndOfList"/>
 		</context>
-		<context name="MaybeEndOfList">
+		
+		<context name="MaybeEndOfList" lineEndContext="#stay">
 			<DetectSpaces/>
 			<!--The list keeps going:-->
 			<DetectChar char="," context="#pop#pop"/>
-			
 			<!--The list is over:-->
 			<RegExpr String="." context="#pop#pop#pop" endRegion="#pop"/>
 		</context>
@@ -408,6 +413,7 @@ Boston, MA  02110-1301, USA.
 		<itemData name="Comment"         defStyleNum="dsComment" />
 		<itemData name="Region Marker"   defStyleNum="dsRegionMarker" />
 		<itemData name="Error"           defStyleNum="dsError" spellChecking="false"/>
+		<itemData name="Symbol"          defStyleNum="dsNormal" spellChecking="false"/>
 	</itemDatas>
 
 </highlighting>
