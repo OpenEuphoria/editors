@@ -247,7 +247,6 @@ Boston, MA  02110-1301, USA.
 		<item> enum type </item>
 		<item> for </item>
 		<item> function </item>
-		<item> ifdef </item>
 		<item> if </item>
 		<item> loop </item>
 		<item> procedure </item>
@@ -259,12 +258,18 @@ Boston, MA  02110-1301, USA.
 		<item> case </item>
 		<item> elsedef </item>
 		<item> else </item>
-		<item> elsifdef </item>
 		<item> elsif </item>
 	</list>
 	
 	<list name="switch_block">
 		<item> switch </item>
+	</list>
+	
+	<list name="ifdef_block">
+		<item> ifdef </item>
+	</list>
+	<list name="elsifdef_block">
+		<item> elsifdef </item>
 	</list>
 	<contexts>
 		
@@ -276,6 +281,8 @@ Boston, MA  02110-1301, USA.
 			<keyword String="stop_start_block" endRegion="regBlock" beginRegion="regBlock" attribute="Keyword" context="#stay"/>
 			<keyword String="start_block" beginRegion="regBlock" attribute="Keyword" context="#stay"/>
 			<keyword String="switch_block" beginRegion="regSwitch" attribute="Keyword" context="#stay"/>
+			<keyword String="ifdef_block" beginRegion="regBlock" attribute="Keyword" context="IfDef"/>
+			<keyword String="elsifdef_block" endRegion="regBlock" beginRegion="regBlock" attribute="Keyword" context="IfDef"/>
 			<keyword attribute="Keyword" String="with_without" context="With Directive" firstNonSpace="true"/>
 			
 			<keyword attribute="Keyword" context="#stay" String="keywords"/>
