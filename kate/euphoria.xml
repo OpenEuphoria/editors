@@ -225,6 +225,11 @@ Boston, MA  02110-1301, USA.
 		<item> or </item>
 		<item> not </item>
 	</list>
+	
+	<list name="include_directive">
+		<item> include </item>
+	</list>
+	
 	<contexts>
 			
 		<context attribute="Normal Text" lineEndContext="#stay" name="Normal">
@@ -293,7 +298,7 @@ Boston, MA  02110-1301, USA.
 			<Detect2Chars attribute="Comment" context="Comment" char="-" char1="-"/>
 			<Detect2Chars attribute="Comment" context="Comment Multi" char="/" char1="*" beginRegion="Comment"/>
 			
-			<WordDetect attribute="Type" String="include" context="Include Line" firstNonSpace="true"/>
+			<keyword attribute="Type" String="include_directive" context="Include Line"/>
 			<WordDetect attribute="Keyword" String="namespace" context="Namespace Declaration"/>
 			<keyword attribute="Keyword" String="memtype_declaration" context="Memtype" beginRegion="regMemtype"/>
 			<RegExpr attribute="Keyword" String="\bsizeof\b" context="Size Of"/>
@@ -348,7 +353,7 @@ Boston, MA  02110-1301, USA.
 			<DetectIdentifier attribute="Directive"/>
 		</context>
 		<context name="Include Line" lineEndContext="#pop" attribute="Normal Text">
-			<RegExpr attribute="Type" String="\sas\s" context="Namespace Declaration"/>
+			<RegExpr attribute="Keyword" String="\sas\s" context="Namespace Declaration"/>
 			<DetectIdentifier context="#stay" attribute="String"/>
 		</context>
 		<context name="Namespace Declaration" attribute="Directive" lineEndContext="#stay">
