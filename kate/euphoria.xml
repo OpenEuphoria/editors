@@ -229,56 +229,53 @@ Boston, MA  02110-1301, USA.
 	<list name="include_directive">
 		<item> include </item>
 	</list>
+	<list name="end_block">
+		<item> end </item>
+	</list>
+	<list name="blocks">
+		<item> enum type </item>
+		<item> for </item>
+		<item> function </item>
+		<item> ifdef </item>
+		<item> if </item>
+		<item> loop </item>
+		<item> procedure </item>
+		<item> type </item>
+		<item> while </item>
+	</list>
+	<list name="start_block">
+		<item> enum type </item>
+		<item> for </item>
+		<item> function </item>
+		<item> ifdef </item>
+		<item> if </item>
+		<item> loop </item>
+		<item> procedure </item>
+		<item> type </item>
+		<item> while </item>
+	</list>
 	
+	<list name="stop_start_block">
+		<item> case </item>
+		<item> elsedef </item>
+		<item> else </item>
+		<item> elsifdef </item>
+		<item> elsif </item>
+	</list>
+	
+	<list name="switch_block">
+		<item> switch </item>
+	</list>
 	<contexts>
-			
+		
 		<context attribute="Normal Text" lineEndContext="#stay" name="Normal">
 			<DetectSpaces/>
-			<!--
-				NB: case else should start a new region, but currently, Kate crashes when we use a lookAhead read
-				below to end the regCase region with "end switch", so we'll just not start a region at "case else".
-				Of course, this might mess up folding for code without a "case else".
-			-->
-			<RegExpr attribute="Keyword" context="#stay" String="\bcase\s+else\b" endRegion="regCase" />
-			<RegExpr attribute="Keyword" context="#stay" String="\bcase\b" endRegion="regCase" beginRegion="regCase"/>
 			
-			<!--<RegExpr attribute="Keyword" context="#stay" lookAhead="true" String="\bend\s+switch\b" endRegion="regCase"/>-->
-			<RegExpr attribute="Keyword" context="#stay" String="\bend\s+switch\b" endRegion="regSwitch"/>
-			<RegExpr attribute="Keyword" context="#stay" String="\bswitch\b" beginRegion="regSwitch"/>
-			
-			<RegExpr attribute="Keyword" context="#stay" String="\bend\s+for\b" endRegion="regFor"/>
-			<RegExpr attribute="Keyword" context="#stay" String="\bfor\b" beginRegion="regFor"/>
-
-			<RegExpr attribute="Keyword" context="#stay" String="\belsif\b" endRegion="regIf" beginRegion="regIf"/>
-			<RegExpr attribute="Keyword" context="#stay" String="\belse\b" endRegion="regIf" beginRegion="regIf"/>
-			<RegExpr attribute="Keyword" context="#stay" String="\bend\s+if\b" endRegion="regIf"/>
-			<RegExpr attribute="Keyword" context="#stay" String="\bif\b" beginRegion="regIf"/>
-			
-			<keyword attribute="Keyword" context="IfDef" String="ifdefs" endRegion="regIfDef" beginRegion="regIfDef"/>
-			
-			<RegExpr attribute="Keyword" context="#stay" String="\bend\s+ifdef\b" endRegion="regIfDef"/>
-			<RegExpr attribute="Keyword" context="#stay" String="\belsifdef\b" endRegion="regIfDef" beginRegion="regIfDef"/>
-			<RegExpr attribute="Keyword" context="#stay" String="\belsedef\b" endRegion="regIfDef" beginRegion="regIfDef"/>
-			<RegExpr attribute="Keyword" context="#stay" String="\bifdef\b" beginRegion="regIfDef"/>
-
-			<RegExpr attribute="Keyword" context="#stay" String="\bend\s+function\b" endRegion="regFunction"/>
-			<RegExpr attribute="Keyword" context="#stay" String="\bfunction\b" beginRegion="regFunction"/>
-
-			<RegExpr attribute="Keyword" context="#stay" String="\bend\s+procedure\b" endRegion="regProcedure"/>
-			<RegExpr attribute="Keyword" context="#stay" String="\bprocedure\b" beginRegion="regProcedure"/>
-
-			<RegExpr attribute="Keyword" context="#stay" String="\bend\s+while\b" endRegion="regWhile"/>
-			<RegExpr attribute="Keyword" context="#stay" String="\bwhile\b" beginRegion="regWhile"/>
-
-			<RegExpr attribute="Keyword" context="#stay" String="\bend\s+type\b" endRegion="regType"/>
-			<RegExpr attribute="Keyword" context="#stay" String="\btype\b" beginRegion="regType"/>
-			
-			<RegExpr attribute="Keyword" context="#stay" String="\bend\s+enum\s+type\b" endRegion="regType"/>
-			<RegExpr attribute="Keyword" context="#stay" String="\benum\s+type\b" beginRegion="regType"/>
-			
-			<RegExpr attribute="Keyword" context="#stay" String="\bend\s+loop\b" endRegion="regLoop"/>
-			<RegExpr attribute="Keyword" context="#stay" String="\bend\sloop\b" endRegion="regLoop"/>
-
+			<keyword String="end_block" endRegion="regBlock" context="End Block" attribute="Keyword"/>
+			<keyword String="start_block" beginRegion="regBlock" attribute="Keyword" context="#stay"/>
+			<keyword String="stop_start_block" endRegion="regBlock" beginRegion="regBlock" attribute="Keyword" context="#stay"/>
+			<keyword String="start_block" beginRegion="regBlock" attribute="Keyword" context="#stay"/>
+			<keyword String="switch_block" beginRegion="regSwitch" attribute="Keyword" context="#stay"/>
 			<keyword attribute="Keyword" String="with_without" context="With Directive" firstNonSpace="true"/>
 			
 			<keyword attribute="Keyword" context="#stay" String="keywords"/>
@@ -307,8 +304,17 @@ Boston, MA  02110-1301, USA.
 			<AnyChar String=",./+=-*!&amp;:|[]&lt;&gt;" attribute="Symbol" context="#stay"/>
 			<DetectChar attribute="Symbol" char="{" context="#stay" beginRegion="regSequence"/>
 			<DetectChar attribute="Symbol" char="}" context="#stay" endRegion="regSequence"/>
+			
+			
 		</context>
-
+		
+		<context name="End Block" attribute="Normal Text" lineEndContext="#stay">
+			<DetectSpaces/>
+			<keyword String="blocks" attribute="Keyword" context="#pop"/>
+			<RegExpr String="\bswitch\b" attribute="Keyword" context="#pop" endRegion="regSwitch"/>
+			<RegExpr String="." attribute="Error"/>
+		</context>
+		
 		<context attribute="String" lineEndContext="#stay" name="String">
 		  <HlCStringChar attribute="String Char" context="#stay"/>
 		  <DetectChar attribute="String" context="#pop" char="&quot;"/>
@@ -404,8 +410,9 @@ Boston, MA  02110-1301, USA.
 			<keyword String="memstruct_primitives" attribute="Type" context="#stay"/>
 			<DetectChar context="#pop" char=")"/>
 		</context>
+		
 	</contexts>
-
+	
 	<itemDatas>
 		<itemData name="Normal Text"     defStyleNum="dsNormal" />
 		<itemData name="Keyword"         defStyleNum="dsKeyword" />
