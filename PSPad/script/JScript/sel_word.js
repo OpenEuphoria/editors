@@ -7,11 +7,11 @@
 //
 //	You may distribute this script freely, but please keep this header intact.
 //*******************************************************************************
-var MODULE_NAME  = "Select Word";
-var MODULE_VER   = "0.5";
-var MODULE_TITLE = "Select current word";
+var module_name  = "Select Word";
+var module_ver   = "0.5";
+var module_title = "Select current word";
 function Init() {
-    menuName = "&" + MODULE_NAME;
+    menuName = "&" + module_name;
     subMenu = "&" + "Edit";
     addMenuItem(menuName, subMenu, "main", "CTRL+SHIFT+W");
 }

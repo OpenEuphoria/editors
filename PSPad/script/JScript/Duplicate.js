@@ -1,11 +1,13 @@
 // from the pspad forum new excention thread
 // created : 13.12.2007 // author : Michael Vlasov // // You may distribute this script freely, but please keep this header intact.
 //*******************************************************************************
-var MODULE_NAME = "_Duplicate";
-var MODULE_VER = "1.0";
-var MODULE_TITLE = "Duplicate selection or current line, if no selection";
+var module_name = "_Duplicate";
+var module_ver = "1.0";
+var module_title = "Duplicate selection or current line, if no selection";
+var menuName = "Utilities";
+
 function Init() {
-    menuName = "&" + MODULE_NAME;
+    menuName = "&" + module_name;
     addMenuItem(menuName, "", "main", "CTRL+D");
 }
 function main() {
