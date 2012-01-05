@@ -7,9 +7,10 @@
 *******************************************************************************/
 
 // Constants:
-module_name = "clip_append";
-module_ver = "1.0";
-menu_name = "Utilities";
+var module_name = "clip_append";
+var module_ver = "1.0";
+var module_title = "clip_append";
+var menu_name = "Utilities";
 
 function Init()
 {

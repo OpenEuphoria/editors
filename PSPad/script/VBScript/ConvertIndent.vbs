@@ -23,6 +23,7 @@
 
 Const module_name = "ConvertIndent"
 Const module_ver = "1.0"
+Const module_title = "ConvertIndent"
 
 Const intMaxLineLength = "999999"
 
