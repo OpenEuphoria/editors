@@ -1,40 +1,39 @@
 include std/types.e
 include std/filesys.e
-include std/os.e
 include std/io.e
+include std/os.e
+include std/utils.e
 
 procedure err(sequence msg)
-	puts(STDERR, "Cannot install mode: "&msg&"\n")
+	puts(io:STDERR, "Cannot install mode: "&msg&"\n")
 	abort(1)
 end procedure
 
-puts(STDOUT, "This program will install the EUPHORIA mode for jEdit.\n" &
+puts(io:STDOUT, "This program will install the EUPHORIA mode for jEdit.\n" &
 	"Press ENTER to continue or CNTRL+C to stop.\n")
 object line
 line = gets(STDIN)
 
 constant home = getenv("HOME")
 constant appdata = getenv("APPDATA")
-ifdef WINDOWS then
-	if atom(appdata) then
-		err("No AppData directory.")
-	end if
-elsedef
-	if atom(home) then
-		err("No HOME directory.")
-	end if
-end ifdef
+switch platform() do
+	case WINDOWS then
+		if atom(appdata) then
+			err("No AppData directory.")
+		end if
+	case else
+		if atom(home) then
+			err("No HOME directory.")
+		end if
+end switch
 
-ifdef LINUX then
-	constant settings = home & "/.jedit"
-elsifdef OSX then
-	constant settings = home & "/Library/jEdit"
-elsifdef WINDOWS then
-	constant settings = appdir & "\\jEdit"
-elsedef
-	constant settings = 0
+
+constant settings = iif(platform() = WINDOWS, appdata & "\\jEdit",
+					iif(platform() = OSX, home & "/Library/jEdit",
+				        home & "/.jedit")) -- Other platforms
+if not find(platform(), WINDOWS & OSX & LINUX & FREEBSD & NETBSD) then
 	err("Your OS is not supported.")
-end ifdef
+end if
 
 sequence catdir = settings & SLASH & "modes" 
 sequence iname = catdir & SLASH & "catalog"
@@ -95,7 +94,7 @@ close(ofd)
 -- a second time.
 ifd = -1
 ofd = -1
-if not copy_file("euphoria.xml", home & SLASH & ".jedit" & SLASH & "modes" & SLASH & "euphoria.xml", TRUE) then
+if not copy_file("euphoria.xml", settings & SLASH & "modes" & SLASH & "euphoria.xml", TRUE) then
 	err("Cannot copy euphoria mode file")
 end if
 if not move_file(iname, iname & ".bak", TRUE) then
