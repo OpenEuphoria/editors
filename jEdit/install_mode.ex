@@ -12,7 +12,7 @@ end procedure
 puts(io:STDOUT, "This program will install the EUPHORIA mode for jEdit.\n" &
 	"Press ENTER to continue or CNTRL+C to stop.\n")
 object line
-line = gets(STDIN)
+line = gets(io:STDIN)
 
 constant home = getenv("HOME")
 constant appdata = getenv("APPDATA")
@@ -103,5 +103,5 @@ end if
 if not move_file(oname, iname, TRUE) then
 	err("Cannot move new mode configuration into place.")
 end if
-puts(STDERR, "Euphoria mode installed.\n")
+puts(io:STDERR, "Euphoria mode installed.\n")
 
